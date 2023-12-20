@@ -11,7 +11,7 @@ export default function Nav() {
             {navbarLinks.map((item, index) => (
                 <li key={index} className="mr-4">
                     <Link aria-label={item.title} href={item.url}>
-                        <item.icon/>
+                        <item.icon color='lightblue' size={36}/>
                     </Link>
                 </li>
             ))}
