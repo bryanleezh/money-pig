@@ -19,7 +19,7 @@ const SignIn = () => {
         }
     
         console.log(result);
-        return router.push("/trips");
+        return router.push("/account");
       }
     return (
         <div className="wrapper">

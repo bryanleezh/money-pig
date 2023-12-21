@@ -13,7 +13,6 @@ interface AuthContextProviderProps {
 
 export const AuthContext = React.createContext({} as { user: User | null });
 
-// export const useAuthContext = () => React.useContext(AuthContext);
 export const useAuthContext = () => {
     const context = React.useContext(AuthContext);
     if (!context) {
