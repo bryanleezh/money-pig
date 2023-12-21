@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import signIn from "@/lib/firebase/auth/signin";
+import signIn from "@/components/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 
 const SignIn = () => {
@@ -24,7 +24,7 @@ const SignIn = () => {
     return (
         <div className="wrapper">
             <div className="form-wrapper">
-                <h1 className="mt-60 mb-30">Sign up</h1>
+                <h1 className="mt-60 mb-30">Sign In</h1>
                 <form onSubmit={handleForm} className="form">
                     <label htmlFor="email">
                         <p>Email</p>

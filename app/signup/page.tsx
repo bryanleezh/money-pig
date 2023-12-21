@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import signUp from '@/lib/firebase/auth/signup'
+import signUp from '@/components/firebase/auth/signup'
 import { useRouter } from 'next/navigation'
 
 const SignUp = () => {
@@ -19,7 +19,7 @@ const SignUp = () => {
     }
 
     console.log(result);
-    return router.push("/trips");
+    return router.push("/account");
   }
   return (
     <div className="wrapper">

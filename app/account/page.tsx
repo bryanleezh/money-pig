@@ -10,7 +10,7 @@ import { Nav } from '@/components';
 const Account = () => {
     const { user } = useAuthContext();
     const router = useRouter();
-
+    console.log(user);
     useEffect(() => {
         if (user == null) router.push("/signin")
     }, [user])
