@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react'
-import signUp from '@/components/firebase/auth/signup'
+import signUp from '@/lib/firebase/auth/signup'
 import { useRouter } from 'next/navigation'
 
 const SignUp = () => {

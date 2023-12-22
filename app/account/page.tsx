@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Nav } from '@/components';
-import SignOut from '@/components/firebase/auth/signout';
+import SignOut from '@/lib/firebase/auth/signout';
 
 const Account = () => {
     const { user } = useAuthContext();

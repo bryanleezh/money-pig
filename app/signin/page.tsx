@@ -1,7 +1,7 @@
 'use client';
 
 import React from "react";
-import signIn from "@/components/firebase/auth/signin";
+import signIn from "@/lib/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 import { Coins } from "lucide-react";
 
