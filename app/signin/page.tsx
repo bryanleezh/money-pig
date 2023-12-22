@@ -16,7 +16,8 @@ const SignIn = () => {
         const { result, error } = await signIn(email, password);
     
         if ( error ) {
-          return console.log(error);
+            window.alert("Email or password entered wrongly, please try again!");
+            return console.log(error);
         }
     
         console.log(result);
@@ -81,6 +82,12 @@ const SignIn = () => {
                         </button>
                     </div>
                 </form>
+                <p className="mt-10 text-center text-sm text-gray-500">
+                    Not a member?{' '}
+                    <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    Sign Up
+                    </a>
+                </p>
             </div>
         </div>
     )
