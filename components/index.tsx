@@ -1,5 +1,5 @@
 import Nav from './Nav';
-import {Signin} from './SignIn';
+import {Signin} from '@/components/Signin';
 import {Signup} from '@/components/Signup';
 
 export {

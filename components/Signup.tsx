@@ -1,20 +1,20 @@
 'use client';
 
-import React from 'react'
-import signUp from '@/lib/firebase/auth/signup'
-import { useRouter } from 'next/navigation'
+import React from 'react';
+import signUp from '@/lib/firebase/auth/signup';
+import { useRouter } from 'next/navigation';
+import addData from '@/lib/firebase/firestore/addData';
 
 export const Signup = () => {
+  const [username, setUsername] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
   const [password, setPassword] = React.useState<string>('');
   const [confirmpassword, setConfirmPassword] = React.useState<string>('');
 
-  // add errors rendering, might remove email errors since will check on firebase side
-  const [emailerrors, setEmailErrors] = React.useState<string[]>([]);
   const [passworderrors, setPasswordErrors] = React.useState<string[]>([]);
   const router = useRouter();
 
-  const validatePassword = async () => {
+  const validatePassword = () => {
     const errors: string[] = [];
     if (password.length < 6) {
       errors.push("Password needs to be at least 6 characters");
@@ -42,8 +42,16 @@ export const Signup = () => {
 
     if ( error ) {
       window.alert(error);
-      return console.log(error);
+      return;
     }
+
+    const userData = {
+      username: username,
+      trips: {},
+      totalExpense: 0,
+
+    }
+    const { result:res, error: err} = await addData('users', email, userData);
 
     console.log(result);
     return router.push("/account");
@@ -59,6 +67,22 @@ export const Signup = () => {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6 form" onSubmit={handleForm}>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium leading-6">
+                Username
+              </label>
+              <div className="mt-2">
+                <input
+                onChange={(e) => setUsername(e.target.value)} 
+                required 
+                type="text" 
+                name="username" 
+                id="username"
+                placeholder='Enter username'
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6">
                 Email address
@@ -88,7 +112,7 @@ export const Signup = () => {
                   type="password" 
                   name="password1" 
                   id="password1" 
-                  placeholder="password"
+                  placeholder="Password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
               </div>
@@ -107,7 +131,7 @@ export const Signup = () => {
                   type="password" 
                   name="password2" 
                   id="password2" 
-                  placeholder="password"
+                  placeholder="Password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
               </div>

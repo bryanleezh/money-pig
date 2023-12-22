@@ -11,7 +11,7 @@ const Account = () => {
     const { user } = useAuthContext();
     const router = useRouter();
     console.log(user);
-
+    console.log(user?.email);
 
     const handleLogout = async() => {
       const {result, error} = await SignOut();
