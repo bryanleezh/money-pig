@@ -36,7 +36,6 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
     
     React.useEffect(() => {
         fetchAccData();
-        console.log(account);
     }, []);
 
     const username: string = account.length > 0 ? account[0].username : '';
