@@ -3,8 +3,6 @@ import { getFirestore, doc, setDoc, PartialWithFieldValue, DocumentData } from "
 
 const db = getFirestore(firebase_app)
 
-type Data = string | number ;
-
 export default async function addData(colllection: string, id: string, data: PartialWithFieldValue<DocumentData>) {
     let result = null;
     let error = null;
