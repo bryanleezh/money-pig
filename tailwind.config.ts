@@ -13,12 +13,18 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      colors:{
+        words: '#ff9f63'
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite'
+      }
     },
-    colors: {
-      transparent: 'transparent',
-      current: 'currentColor',
-      primary: '#bae6fd',
-    }
+    // colors: {
+      // transparent: 'transparent',
+      // current: 'currentColor',
+      // primary: '#bae6fd',
+    // }
   },
   plugins: [],
 }
