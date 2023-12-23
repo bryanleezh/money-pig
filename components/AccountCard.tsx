@@ -40,7 +40,7 @@ export default function AccountCard ({
             Total Number of Trips: {tripCount}
           </p>
           <p className="mb-7 text-base text-primary leading-relaxed text-body-color dark:text-dark-6">
-            Total Amount Spent: {totalExpense}
+            Total Amount Spent: ${totalExpense}
           </p>
         </div>
       </div>
