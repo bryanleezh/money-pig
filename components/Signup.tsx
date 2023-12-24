@@ -50,7 +50,8 @@ export const Signup = () => {
       trips: {},
       totalExpense: 0,
       activity: []
-    }
+    };
+    
     const { result:res, error: err} = await addData('users', email, userData);
 
     console.log(result);
