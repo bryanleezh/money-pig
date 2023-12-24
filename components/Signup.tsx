@@ -49,7 +49,7 @@ export const Signup = () => {
       username: username,
       trips: {},
       totalExpense: 0,
-
+      activity: []
     }
     const { result:res, error: err} = await addData('users', email, userData);
 
