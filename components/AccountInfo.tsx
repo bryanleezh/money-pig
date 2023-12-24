@@ -2,7 +2,7 @@
 
 import React from "react";
 import firebase_app from "@/lib/firebase/config";
-import { DocumentData, QuerySnapshot, collection, getDocs, getFirestore, query } from "firebase/firestore";
+import { DocumentData, QuerySnapshot, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore";
 import AccountCard from '@/components/AccountCard';
 import profilepic from '@/lib/images/profile-photo.jpg';
 import { AccountInfoProps } from "@/lib/types";
@@ -18,13 +18,24 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
     console.log("collection: ", userCollection);
     const fetchAccData = async() => {
         try {
-            const q = query(userCollection);
-            const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
-
             const userData: DocumentData[] = [];
-            querySnapshot.forEach((doc) => {
-                userData.push(doc.data());
-            });
+            // const q = query(userCollection);
+            // const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
+            // querySnapshot.forEach((doc) => {
+            //     userData.push(doc.data());
+            // });
+            
+            if (email !== null) {
+                const docRef = doc(db, "users", email);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userData.push(docSnap.data());
+                    console.log(docSnap.data());
+                }
+                else {
+                    console.log('No such document!');
+                }
+            }
 
             setAccount(userData);
             setLoading(false);
