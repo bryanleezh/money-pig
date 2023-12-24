@@ -4,7 +4,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Nav } from '@/components';
+import { Nav, TripsSection } from '@/components';
 
 
 const Trips = () => {
@@ -20,6 +20,7 @@ const Trips = () => {
     <div>
         <Nav />
         Authorised
+        <TripsSection email={user?.email || null}/>
     </div>
   )
 }

@@ -5,11 +5,8 @@ import firebase_app from "@/lib/firebase/config";
 import { DocumentData, QuerySnapshot, collection, getDocs, getFirestore, query } from "firebase/firestore";
 import AccountCard from '@/components/AccountCard';
 import profilepic from '@/lib/images/profile-photo.jpg';
+import { AccountInfoProps } from "@/lib/types";
 import Loader from "./Loader";
-
-interface AccountInfoProps {
-    email: string | null;
-}
 
 export default function AccountInfo( { email }: AccountInfoProps ) {
     const db = getFirestore(firebase_app);
@@ -64,54 +61,7 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
                         />
                         </div>
                 </section>
-
-                // old template
-                // <div>
-                //     {/* maybe put a logo */}
-                //     <div className="px-4 sm:px-0">
-                //         <h3 className="text-base font-semibold leading-7 text-primary">Account Information</h3>
-
-                //     </div>
-                //     <div className="mt-3">
-                //         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                //             <dt className="text-sm font-bold leading-6 text-primary">Hi {username}! This is what your expenses look like!</dt>
-                //         </div>
-                //         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                //             <dt className="text-sm font-semibold leading-6 text-primary">Email</dt>
-                //             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{email}</dd>
-                //         </div>
-                //         <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                //             <dt className="text-sm font-semibold leading-6 text-primary">Total Number of Trips</dt>
-                //             <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{tripCount}</dd>
-                //         </div>  
-                //     </div>
-                // </div>
             }
-                {/* base template 
-                <div>
-                    <p>Email: {email}</p>
-                    <p>Username: {username} </p>
-                    <p>Total Number of Trips: {tripCount} </p>
-                </div> */}
-            
-            {/* only render if email exists */}
-            {/* {email ? (
-                <div>
-                    <p>Email: {email}</p>
-                </div>
-            ) : (
-                <p>No email available</p>
-            )}
-            {username ? (
-                <p>Username: {username} </p>
-            ): (
-                <p>No username available</p>
-            )}
-            {tripCount ? (
-                <p>Total Number of Trips: {tripCount} </p>
-            ): (
-                <p>No trips found</p>
-            )} */}
         </div>
     )
 }

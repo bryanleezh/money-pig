@@ -8,7 +8,7 @@ import { Nav, AccountInfo } from '@/components';
 
 const Account = () => {
     const { user } = useAuthContext();
-    // const [userAcc, setuserAcc] = React.useState<User>();
+
     const router = useRouter();
     // console.log(user);
     // console.log(typeof user?.email);
