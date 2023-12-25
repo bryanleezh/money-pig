@@ -33,6 +33,7 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
                     console.log(docSnap.data());
                 }
                 else {
+                    // might need to change this error logging
                     console.log('No such document!');
                 }
             }

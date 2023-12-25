@@ -4,15 +4,20 @@ import React from 'react';
 import { AccountInfoProps } from '@/lib/types';
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { Bike } from 'lucide-react';
+import { Bike, Loader } from 'lucide-react';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
+import firebase_app from '@/lib/firebase/config';
+import { User } from 'firebase/auth';
 
 export default function AddTrip ( { email } : AccountInfoProps ) {
+    const db = getFirestore(firebase_app);
     // form data for adding new trip
-    const [tripName, setTripName] = React.useState('');
-    const [description, setDescription] = React.useState('');
-    const [addedUsersArr, setAddedUsersArr] = React.useState([]);
+    const [tripName, setTripName] = React.useState<string>('');
+    const [description, setDescription] = React.useState<string>('');
+    const [addedUsersArr, setAddedUsersArr] = React.useState<string[]>([]);
+    const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
     // array for populating
-    const [usersArr, setUsersArr] = React.useState([]);
+    const [usersArr, setUsersArr] = React.useState<string[]>([]);
 
     const [open, setOpen] = React.useState(true);
 
@@ -25,8 +30,21 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
     };
     
     // TODO: function to populate users from firebase into an array
-    const populateUsers = () => {
+    const populateUsers = async () => {
+        try{
+            const querySnapshot = await getDocs(collection(db, 'users'));
+            const userIdsData: string[] = [];
 
+            querySnapshot.forEach((doc) => {
+                userIdsData.push(doc.id);
+            });
+
+            setUsersArr(userIdsData);
+            setIsUsersLoading(false);
+        } catch (err) {
+            console.error("Error fetching user ids: ", err);
+            setIsUsersLoading(false);
+        }
     };
 
     // TODO: submit form to add data
@@ -34,6 +52,10 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
 
     };
 
+    React.useEffect(() => {
+        populateUsers();
+    }, []);
+    
     return (
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -112,10 +134,14 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                                         </div>
                                     </div>
                                     {/* Users */}
-                                    <div className="sm:col-span-3">
+                                    <div className="sm:col-span-full">
                                         <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                                            Who will you be going with!
-                                        </label>
+                                            Who will you be going with?
+                                            <p className="block text-sm font-medium leading-6 text-gray-500">If you are on desktop: hold cmd(Mac)/ctrl(Windows) to select multiple!</p>
+                                        </label>              
+                                        {
+                                            isUsersLoading ?
+                                            <Loader color='black' className='animate-spin-slow'/>:                         
                                         <div className="mt-2">
                                             <select
                                                 id="users"
@@ -123,12 +149,13 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                                                 multiple
                                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                                             >
-                                            {/* populate with users */}
-                                            <option>United States</option>
-                                            <option>Canada</option>
-                                            <option>Mexico</option>
+                                            {/* populate with users  with onclick event to add to form*/}
+                                            {usersArr.map((id,index) => (
+                                                <option key={index}>{id}</option>
+                                            ))}
                                             </select>
                                         </div>
+                                        }
                                     </div>
                                 </div>
                                 {/* <div className="mt-2">
