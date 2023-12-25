@@ -10,6 +10,8 @@ import firebase_app from '@/lib/firebase/config';
 import { v4 as uuidv4 } from 'uuid';
 import addData from '@/lib/firebase/firestore/addData';
 
+// Future Reference: shadcn/ui -> Dialog
+
 export default function AddTrip ( { email } : AccountInfoProps ) {
     const db = getFirestore(firebase_app);
     // form data for adding new trip
@@ -96,7 +98,11 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                 console.error(`Error adding trip data to user ${user}`, error);
             }
         }
-
+        
+        if (result) {
+            window.alert('Trip Successfully Created!');
+            location.reload();
+        }
         // console.log(uuid);
         // console.log('userTripData', userTripData);
         // console.log('tripData', tripData);

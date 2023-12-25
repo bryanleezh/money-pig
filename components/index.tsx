@@ -4,6 +4,8 @@ import AccountInfo from './AccountInfo';
 import {Signin} from './Signin';
 import {Signup} from './Signup';
 import TripsSection from './TripsSection';
+import AddTrip from './AddTrip';
+import TripsTable from './TripsTable';
 
 export {
     Nav,
@@ -11,5 +13,7 @@ export {
     Signin,
     Signup,
     AccountInfo,
-    TripsSection
+    TripsSection,
+    AddTrip,
+    TripsTable,
 }
