@@ -19,6 +19,10 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
     const [description, setDescription] = React.useState<string>('');
     const [addedUsersArr, setAddedUsersArr] = React.useState<string[]>([]);
     const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
+
+    // for form submission
+    const [isFormLoading, setIsFormLoading] = React.useState<boolean>(false);
+    const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
     // array for populating
     const [usersArr, setUsersArr] = React.useState<string[]>([]);
 
@@ -38,13 +42,13 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             const userIdsData: string[] = [];
 
             querySnapshot.forEach((doc) => {
-                userIdsData.push(doc.id);
+                if (doc.id !== email) userIdsData.push(doc.id);
             });
 
             setUsersArr(userIdsData);
-            setIsUsersLoading(false);
         } catch (err) {
             console.error("Error fetching user ids: ", err);
+        } finally {
             setIsUsersLoading(false);
         }
     };
@@ -60,8 +64,13 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
     const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        // Set submission loading state
+        setIsFormLoading(true);
+
         // create uuid as document id
+        let noError: boolean = false;
         const uuid = uuidv4();
+        const updatedAddedUsersArr = [...addedUsersArr, email];
 
         // data to be added to user data
         const userTripData = {
@@ -69,7 +78,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             description: description,
             // UUID as id --> id will be used as value in table for onClick functionality
             id: uuid,
-            users: addedUsersArr
+            users: updatedAddedUsersArr
         };
 
         // data to be added to trips collection
@@ -77,35 +86,46 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             uuid: uuid,
             name: tripName,
             description: description,
-            users: addedUsersArr,
+            users: updatedAddedUsersArr,
             // add other info here
         }
-
-        // Add trip to trip collection
-        const { result, error } = await addData('trips', uuid, tripData);
-        // Add trip to users 
-        for (var user of addedUsersArr) {
-            const userDocRef = doc(db, 'users', user);
-            try {
-                await updateDoc(userDocRef, {
-                    trips: {
-                        [uuid]: userTripData,
-                    },
-                });
-
-                console.log(`Trip data added to user: ${user}`);
-            } catch (error) {
-                console.error(`Error adding trip data to user ${user}`, error);
+        try {
+            // Add trip to trip collection
+            const { result, error } = await addData('trips', uuid, tripData);
+            // Add trip to users 
+            for (var user of addedUsersArr) {
+                const userDocRef = doc(db, 'users', user);
+                try {
+                    await updateDoc(userDocRef, {
+                        trips: {
+                            [uuid]: userTripData,
+                        },
+                    });
+                    console.log(`Trip data added to user: ${user}`);
+                } catch (error) {
+                    noError = true;
+                    console.error(`Error adding trip data to user ${user}`, error);
+                }
             }
+
+            // TODO: Add creation of trip to Activity
+
+
+
+            
+            if (!noError) {
+                setIsSuccess(true);
+                setTimeout(() => {
+                    setIsSuccess(false);
+                }, 3000);
+            }
+
+        } finally {
+            setIsFormLoading(false);
+            setTimeout(() => {
+                location.reload();
+            },2000);
         }
-        
-        if (result) {
-            window.alert('Trip Successfully Created!');
-            location.reload();
-        }
-        // console.log(uuid);
-        // console.log('userTripData', userTripData);
-        // console.log('tripData', tripData);
 
     };
 
@@ -231,11 +251,12 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                                 </div>
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
-                                    type="submit"
-                                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                    onClick={() => setOpen(false)}
+                                        type="submit"
+                                        className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                        onClick={() => setOpen(false)}
+                                        disabled={isFormLoading}
                                     >
-                                        Onwards!
+                                        {isFormLoading ? 'Submitting...' : 'Onwards!'}
                                     </button>
                                     <button
                                     type="button"
@@ -253,6 +274,12 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                 </div>
                 </Dialog>
             </Transition.Root>
+            {isSuccess && (
+                <div className='mt-3 text-center text-green-600'>
+                    <p>Trip Successfully Created!</p>
+                    <p>Page will now reload...</p>
+                </div>
+            )}
         </div>
     )
   
