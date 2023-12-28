@@ -87,8 +87,9 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             name: tripName,
             description: description,
             users: updatedAddedUsersArr,
-            // add other info here
+            // TODO: Add other info here when implementing trips logic
         }
+        
         try {
             // Add trip to trip collection
             const { result, error } = await addData('trips', uuid, tripData);
