@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
+import { DocumentData, QuerySnapshot, collection, getDocs, getFirestore, query } from 'firebase/firestore';
+import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Accessibility } from 'lucide-react';
-import { DocumentData, QuerySnapshot, collection, getDocs, getFirestore, query } from 'firebase/firestore';
-import firebase_app from '@/lib/firebase/config';
+import Loader from "./Loader";
+
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
 
@@ -16,7 +18,6 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
     const fetchTripData = async() => {
-        //   TODO: Populate all with trips related to the email
         if (email !== null){
             try {
                 const data: Trip[] = []; 
@@ -44,16 +45,18 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
     return (
         <div className='container mx-auto max-w-3xl p-8 grow'>
             {isLoading ? (
-                <p>Loading...</p>
+                <div role="status" className="flex justify-center">
+                    <Loader />
+                </div>
                 ) : (
                 <>
                     {tripsData.map((item: Trip, index) => (
                         // TODO: Add dynamic routing to indiv trips page
                         <div key={index} className='mb-8 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>
                             <div className='row-span-2 flex flex-col items-center pt-2'>
-                            <Link aria-label='trip' href='trips'>
-                                <Accessibility size={48} color='lightblue'/>
-                            </Link>
+                                <Link aria-label='trip' href='trips'>
+                                    <Accessibility size={48} color='lightblue'/>
+                                </Link>
                             </div>
                             <div className='col-span-3'>
                                 <h2>
