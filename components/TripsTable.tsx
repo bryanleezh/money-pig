@@ -54,7 +54,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                         // TODO: Add dynamic routing to indiv trips page
                         <div key={index} className='mb-8 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>
                             <div className='row-span-2 flex flex-col items-center pt-2'>
-                                <Link aria-label='trip' href='trips'>
+                                <Link aria-label='trip' href={'trips/'+item.uuid}>
                                     <Accessibility size={48} color='lightblue'/>
                                 </Link>
                             </div>
@@ -62,7 +62,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                                 <h2>
                                     <a
                                     className="mb-1 block text-xl font-bold text-primary hover:text-primary dark:text-cyan-200 sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px]"
-                                    href='/trips'
+                                    href={'trips/'+item.uuid}
                                     >
                                         {item.name}
                                     </a>
@@ -71,7 +71,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                             <div className="col-start-2 row-start-2 col-span-3">
                                 <a
                                 className="text-base font-semibold text-primary leading-relaxed text-body-color dark:text-primary"
-                                href='/trips'
+                                href={'trips/'+item.uuid}
                                 >
                                     {item.description}
                                 </a>
