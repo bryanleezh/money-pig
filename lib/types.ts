@@ -9,7 +9,12 @@ interface Trip {
     uuid: string;
 }
 
+interface TripUuid {
+    tripUUID: string;
+}
+
 export type {
     AccountInfoProps,
-    Trip
+    Trip,
+    TripUuid,
 }

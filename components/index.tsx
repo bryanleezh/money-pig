@@ -6,6 +6,8 @@ import {Signup} from './Signup';
 import TripsSection from './TripsSection';
 import AddTrip from './AddTrip';
 import TripsTable from './TripsTable';
+import AddExpense from './AddExpense';
+import ExpensesView from './ExpensesView';
 
 export {
     Nav,
@@ -16,4 +18,6 @@ export {
     TripsSection,
     AddTrip,
     TripsTable,
+    AddExpense,
+    ExpensesView,
 }
