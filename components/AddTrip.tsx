@@ -89,7 +89,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             users: updatedAddedUsersArr,
             // TODO: Add other info here when implementing trips logic
         }
-        
+
         try {
             // Add trip to trip collection
             const { result, error } = await addData('trips', uuid, tripData);
@@ -139,11 +139,11 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             <button
                 onClick={handleOpenModal}
                 className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-                >
+            >
                 Create New Trip
             </button>
             <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
+                <Dialog as="div" className="fixed inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -156,121 +156,119 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                     <div className="fixed bg-gray-500 bg-opacity-75 transition-opacity" />
                 </Transition.Child>
         
-                <div className="fixed z-10 w-screen overflow-y-auto">
-                {/* <div className="fixed transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:max-w-lg"> */}
-
+                <div className="fixed z-10 w-full h-full flex items-center justify-center">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                        enterTo="opacity-100 translate-y-0 sm:scale-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                        leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                    >
-                        <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                            <form className='form' onSubmit={handleForm}>
-                                <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                    <div className="sm:flex sm:items-start">
-                                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                        <Bike className="h-6 w-6 text-green-600" aria-hidden="true" />
-                                    </div>
-                                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                        <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                        Add a New Trip
-                                        </Dialog.Title>
-                                        {/* Add form here */}
-                                        <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                            {/* trip name */}
-                                            <div className="sm:col-span-4">
-                                                <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Trip Name:
-                                                </label>
-                                                <div className="mt-2">
-                                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                    <input
-                                                        onChange={(e) => setTripName(e.target.value)}
-                                                        required
-                                                        type="text"
-                                                        name="tripname"
-                                                        id="tripname"
-                                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                    />
+                        <Transition.Child
+                            as={Fragment}
+                            enter="ease-out duration-300"
+                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                            enterTo="opacity-100 translate-y-0 sm:scale-100"
+                            leave="ease-in duration-200"
+                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                        >
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                <form className='form' onSubmit={handleForm}>
+                                    <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                        <div className="sm:flex sm:items-start">
+                                            <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
+                                                <Bike className="h-6 w-6 text-green-600" aria-hidden="true" />
+                                            </div>
+                                            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                                <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
+                                                Add a New Trip
+                                                </Dialog.Title>
+                                                {/* Add form here */}
+                                                <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                                    {/* trip name */}
+                                                    <div className="sm:col-span-4">
+                                                        <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                                                            Trip Name:
+                                                        </label>
+                                                        <div className="mt-2">
+                                                            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                            <input
+                                                                onChange={(e) => setTripName(e.target.value)}
+                                                                required
+                                                                type="text"
+                                                                name="tripname"
+                                                                id="tripname"
+                                                                className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                            />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {/* Trip Description */}
+                                                    <div className="col-span-full">
+                                                        <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
+                                                            Description:
+                                                        </label>
+                                                        <div className="mt-2">
+                                                            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                                                <input
+                                                                    onChange={(e) => setDescription(e.target.value)}
+                                                                    required
+                                                                    type="text"
+                                                                    name="descriptiom"
+                                                                    id="description"
+                                                                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {/* Users */}
+                                                    <div className="sm:col-span-full">
+                                                        <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+                                                            Who will you be going with?
+                                                            <p className="block text-sm font-medium leading-6 text-gray-500">If you are on desktop: hold cmd(Mac)/ctrl(Windows) to select multiple!</p>
+                                                        </label>              
+                                                        {
+                                                            isUsersLoading ?
+                                                            <Loader color='black' className='animate-spin-slow'/>:                         
+                                                            <div className="mt-2">
+                                                                <select
+                                                                    id="users"
+                                                                    name="users"
+                                                                    multiple={true}
+                                                                    value={addedUsersArr}
+                                                                    onChange={handleUserChange}
+                                                                    className="w-auto justify-center rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                                                                >
+                                                                {/* populate with users  with onclick event to add to form*/}
+                                                                {usersArr.map((id,index) => (
+                                                                    <option key={index} value={id}>
+                                                                        {id}
+                                                                    </option>
+                                                                ))}
+                                                                </select>
+                                                            </div>
+                                                        }
                                                     </div>
                                                 </div>
-                                            </div>
-                                            {/* Trip Description */}
-                                            <div className="col-span-full">
-                                                <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Description:
-                                                </label>
-                                                <div className="mt-2">
-                                                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                        <input
-                                                            onChange={(e) => setDescription(e.target.value)}
-                                                            required
-                                                            type="text"
-                                                            name="descriptiom"
-                                                            id="description"
-                                                            className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {/* Users */}
-                                            <div className="sm:col-span-full">
-                                                <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                                                    Who will you be going with?
-                                                    <p className="block text-sm font-medium leading-6 text-gray-500">If you are on desktop: hold cmd(Mac)/ctrl(Windows) to select multiple!</p>
-                                                </label>              
-                                                {
-                                                    isUsersLoading ?
-                                                    <Loader color='black' className='animate-spin-slow'/>:                         
-                                                    <div className="mt-2">
-                                                        <select
-                                                            id="users"
-                                                            name="users"
-                                                            multiple={true}
-                                                            value={addedUsersArr}
-                                                            onChange={handleUserChange}
-                                                            className="w-auto justify-center rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                                        >
-                                                        {/* populate with users  with onclick event to add to form*/}
-                                                        {usersArr.map((id,index) => (
-                                                            <option key={index} value={id}>
-                                                                {id}
-                                                            </option>
-                                                        ))}
-                                                        </select>
-                                                    </div>
-                                                }
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                </div>
-                                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                    <button
-                                        type="submit"
-                                        className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                        <button
+                                            type="submit"
+                                            className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                            onClick={() => setOpen(false)}
+                                            disabled={isFormLoading}
+                                        >
+                                            {isFormLoading ? 'Submitting...' : 'Onwards!'}
+                                        </button>
+                                        <button
+                                        type="button"
+                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                         onClick={() => setOpen(false)}
-                                        disabled={isFormLoading}
-                                    >
-                                        {isFormLoading ? 'Submitting...' : 'Onwards!'}
-                                    </button>
-                                    <button
-                                    type="button"
-                                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                    onClick={() => setOpen(false)}
-                                    ref={cancelButtonRef}
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                            </form>
-                        </Dialog.Panel>
-                    </Transition.Child>
+                                        ref={cancelButtonRef}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </Dialog.Panel>
+                        </Transition.Child>
                     </div>
                 </div>
                 </Dialog>

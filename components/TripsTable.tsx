@@ -52,22 +52,20 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 <>
                     {tripsData.map((item: Trip, index) => (
                         // TODO: Add dynamic routing to indiv trips page
-                        <Link href={`/trips/${item.uuid}`} passHref>
-                            <div key={index} className='mb-8 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>
+                        <Link key={index} href={`/trips/${item.uuid}`} passHref>
+                            <div  className='mb-8 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>                                
                                 <div className='row-span-2 flex flex-col items-center pt-2'>
                                     <Accessibility size={48} color='lightblue' />
                                 </div>
                                 <div className='col-span-3'>
-                                    <h2>
-                                            <a className="mb-1 block text-xl font-bold text-primary hover:text-primary dark:text-cyan-200 sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px]">
-                                                {item.name}
-                                            </a>
+                                    <h2 className="mb-1 block text-xl font-bold text-primary hover:text-primary dark:text-cyan-200 sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px]">
+                                        {item.name}
                                     </h2>
                                 </div>
                                 <div className="col-start-2 row-start-2 col-span-3">
-                                    <a className="text-base font-semibold text-primary leading-relaxed text-body-color dark:text-primary">
+                                    <h3 className="text-base font-semibold text-primary leading-relaxed text-body-color dark:text-primary">
                                         {item.description}
-                                    </a>
+                                    </h3>
                                 </div>
                             </div>
                         </Link>
