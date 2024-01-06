@@ -8,12 +8,12 @@ import { Nav, TripsSection } from '@/components';
 
 
 const Trips = () => {
-    const { user } = useAuthContext();
-    const router = useRouter();
+  const { user } = useAuthContext();
+  const router = useRouter();
 
-    useEffect(() => {
-        if (user == null) router.push("/signin")
-    }, [user])
+  useEffect(() => {
+      if (user == null) router.push("/signin")
+  }, [user])
     
 
   return (

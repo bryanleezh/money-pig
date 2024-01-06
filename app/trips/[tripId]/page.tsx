@@ -4,7 +4,7 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useAuthContext } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Nav, AddExpense, ExpensesView } from '@/components';
+import { Nav, SingleTrip } from '@/components';
 
 const tripDetails = ({ 
     params
@@ -21,10 +21,10 @@ const tripDetails = ({
     return (
         <div>
             <Nav />
-            <AddExpense tripUUID={params.tripId} />
-            <ExpensesView tripUUID={params.tripId} />
-            <h1>Trip Details</h1>
-            <h2>{params.tripId}</h2>
+            Authorised
+            {/* <h1>Trip Details</h1>
+            <h2>{params.tripId}</h2> */}
+            <SingleTrip tripUUID={params.tripId}/>
         </div>
     )
 }

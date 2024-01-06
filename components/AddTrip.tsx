@@ -56,7 +56,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
     // Populate addedUsersArr through select 
     const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);
-        console.log(selectedOptions);
+        // console.log(selectedOptions);
         setAddedUsersArr(selectedOptions);
     }
 
@@ -182,7 +182,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                                                 <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     {/* trip name */}
                                                     <div className="sm:col-span-4">
-                                                        <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
+                                                        <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                                                             Trip Name:
                                                         </label>
                                                         <div className="mt-2">
@@ -218,7 +218,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                                                     </div>
                                                     {/* Users */}
                                                     <div className="sm:col-span-full">
-                                                        <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+                                                        <label htmlFor="users" className="block text-sm font-medium leading-6 text-gray-900">
                                                             Who will you be going with?
                                                             <p className="block text-sm font-medium leading-6 text-gray-500">If you are on desktop: hold cmd(Mac)/ctrl(Windows) to select multiple!</p>
                                                         </label>              
