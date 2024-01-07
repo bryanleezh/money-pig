@@ -1,12 +1,13 @@
 'use client';
 
 import React, { Fragment } from 'react';
-import { TripInfo, TripUuid } from '@/lib/types';
+import { TripInfo } from '@/lib/types';
+import { currencies } from '@/lib/data';
 import firebase_app from '@/lib/firebase/config';
 import addData from '@/lib/firebase/firestore/addData';
-import { Transition, Dialog } from '@headlessui/react';
+import { Transition, Dialog, Listbox } from '@headlessui/react';
 import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
-import { Bike, Loader } from 'lucide-react';
+import { Bike, Check, ChevronDown, Loader } from 'lucide-react';
 
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     console.log(tripUUID);
@@ -14,6 +15,8 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const db = getFirestore(firebase_app);
     // form data for adding new trip
     const [description, setDescription] = React.useState<string>('');
+    const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0])
+
     const [addedUsersArr, setAddedUsersArr] = React.useState<string[]>([]);
     const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
 
@@ -170,7 +173,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                                 Add a New Expense
                                                 </Dialog.Title>
 
-                                                <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                                                <div className="grid grid-cols-5 gap-x-6 gap-y-8 sm:grid-cols-6">
                                                     {/* Expense Description */}
                                                     <div className="col-span-full">
                                                         <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
@@ -190,10 +193,60 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className="col-span-full">
-                                                        <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
-                                                            {/* TODO: Dropdown Button for choosing currency */}
-                                                        </label>
+                                                    {/* Currency dropdown */}
+                                                    <div className='col-span-3'>
+                                                        <div className="top-16">
+                                                            <Listbox value={selectedCurrency} onChange={setSelectedCurrency}>
+                                                                <div className="relative mt-1">
+                                                                    <Listbox.Button className="relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                                                        <span className="block truncate text-gray-900">{selectedCurrency.label}</span>
+                                                                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                                                        <ChevronDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                                        </span>
+                                                                    </Listbox.Button>
+                                                                    <Transition
+                                                                        as={Fragment}
+                                                                        leave="transition ease-in duration-100"
+                                                                        leaveFrom="opacity-100"
+                                                                        leaveTo="opacity-0"
+                                                                    >
+                                                                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+                                                                        {currencies.map((currency, currencyIdx) => (
+                                                                            <Listbox.Option
+                                                                            key={currencyIdx}
+                                                                            className={({ active }) =>
+                                                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                                                                active ? 'bg-green-200 text-white' : 'text-gray-900'
+                                                                                }`
+                                                                            }
+                                                                            value={currency.label}
+                                                                            >
+                                                                            {({ selected }) => (
+                                                                                <>
+                                                                                <span
+                                                                                    className={`block truncate ${
+                                                                                    selected ? 'font-medium text-gray-900' : 'font-normal text-gray-400'
+                                                                                    }`}
+                                                                                >
+                                                                                    {currency.currency}
+                                                                                </span>
+                                                                                {selected ? (
+                                                                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                                                    <Check className="h-5 w-5" aria-hidden="true" />
+                                                                                    </span>
+                                                                                ) : null}
+                                                                                </>
+                                                                            )}
+                                                                            </Listbox.Option>
+                                                                        ))}
+                                                                        </Listbox.Options>
+                                                                    </Transition>
+                                                                </div>
+                                                            </Listbox>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div className="col-span-3">
                                                         <div className="mt-2">
                                                             <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                                                 <input
@@ -203,7 +256,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                                                     name="currency"
                                                                     id="currency"
                                                                     placeholder='0.00'
-                                                                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                                                    className="block flex-1 border-0 bg-transparent pr-2 py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                                                 />
                                                             </div>
                                                         </div>
