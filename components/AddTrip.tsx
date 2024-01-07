@@ -88,6 +88,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             description: description,
             users: updatedAddedUsersArr,
             // TODO: Add other info here when implementing trips logic
+            expenses: {},
         }
 
         try {

@@ -1,15 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { StaticImageData } from "next/image";
-
-
-interface AccountInfoProps {
-    image: StaticImageData;
-    email: string | null;
-    username: string | null;
-    tripCount: number | null;
-    totalExpense: number | null;
-}
+import { AccountCardProps } from "@/lib/types";
 
 export default function AccountCard ({
   image,
@@ -17,7 +8,7 @@ export default function AccountCard ({
   username,
   tripCount,
   totalExpense
-} : AccountInfoProps) {
+} : AccountCardProps) {
   return (
     <>
       <div className="mb-10 overflow-hidden rounded-lg bg-dark shadow-1 duration-300 hover:shadow-3 dark:bg-dark-2 dark:shadow-card dark:hover:shadow-3">

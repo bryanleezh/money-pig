@@ -1,16 +1,16 @@
 'use client';
 
 import React, { Fragment } from 'react';
-import { TripUuid } from '@/lib/types';
+import { TripInfo, TripUuid } from '@/lib/types';
 import firebase_app from '@/lib/firebase/config';
 import addData from '@/lib/firebase/firestore/addData';
 import { Transition, Dialog } from '@headlessui/react';
-import { getFirestore, getDocs, collection, doc, updateDoc } from 'firebase/firestore';
+import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
 import { Bike, Loader } from 'lucide-react';
 
-export default function AddExpense( {tripUUID} : TripUuid ) {
+export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     console.log(tripUUID);
-
+    console.log(tripData);
     const db = getFirestore(firebase_app);
     // form data for adding new trip
     const [description, setDescription] = React.useState<string>('');
@@ -32,24 +32,15 @@ export default function AddExpense( {tripUUID} : TripUuid ) {
         setOpen(true);
     };
     
-    // TODO: Function to populate users from tripId into an array
-    // const populateUsers = async () => {
-    //     try{
-    //         // can refactor to separate function for getting collection ids?
-    //         const querySnapshot = await getDocs(collection(db, 'users'));
-    //         const userIdsData: string[] = [];
-
-    //         querySnapshot.forEach((doc) => {
-    //             if (doc.id !== email) userIdsData.push(doc.id);
-    //         });
-
-    //         setUsersArr(userIdsData);
-    //     } catch (err) {
-    //         console.error("Error fetching user ids: ", err);
-    //     } finally {
-    //         setIsUsersLoading(false);
-    //     }
-    // };
+    // Function to populate users from tripId into an array
+    const retrieveUsers = () => {
+        if (tripData){
+            setUsersArr(tripData.users);
+            setIsUsersLoading(false);
+        } else {
+            console.error("No valid trip UUID provided");
+        }
+    };
 
     // TODO: Populate all currencies
 
@@ -131,7 +122,7 @@ export default function AddExpense( {tripUUID} : TripUuid ) {
     };
 
     React.useEffect(() => {
-        // populateUsers();
+        retrieveUsers();
     }, []);
     
     return (
@@ -218,7 +209,7 @@ export default function AddExpense( {tripUUID} : TripUuid ) {
                                                         </div>
                                                     </div>
                                                     {/* TODO: Paid by who, split equally/not equally */}
-                                                    {/* Users */}
+                                                    {/* DROPDOWN LIST Users */}
                                                     <div className="sm:col-span-full">
                                                         <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
                                                             Who will you be going with?

@@ -14,8 +14,8 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
 
     const [account, setAccount] = React.useState<DocumentData[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
-    console.log("Email: ", email);
-    console.log("collection: ", userCollection);
+    // console.log("Email: ", email);
+    // console.log("collection: ", userCollection);
     const fetchAccData = async() => {
         try {
             const userData: DocumentData[] = [];
