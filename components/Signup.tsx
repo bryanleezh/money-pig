@@ -5,6 +5,8 @@ import signUp from '@/lib/firebase/auth/signup';
 import { useRouter } from 'next/navigation';
 import addData from '@/lib/firebase/firestore/addData';
 
+// can use React Joyride for initial tutorial after signup, can be a flag in users db which can be turned on and off
+
 export const Signup = () => {
   const [username, setUsername] = React.useState<string>('');
   const [email, setEmail] = React.useState<string>('');
