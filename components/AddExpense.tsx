@@ -8,10 +8,14 @@ import addData from '@/lib/firebase/firestore/addData';
 import { Transition, Dialog, Listbox } from '@headlessui/react';
 import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
 import { Bike, Check, ChevronDown, Loader } from 'lucide-react';
+import { useAuthContext } from '@/app/context/AuthContext';
 
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
-    console.log(tripUUID);
-    console.log(tripData);
+    // console.log(tripUUID);
+    // console.log(tripData);
+    const { user } = useAuthContext();
+    console.log(user?.email);
+
     const db = getFirestore(firebase_app);
     // form data for adding new trip
     const [description, setDescription] = React.useState<string>('');
