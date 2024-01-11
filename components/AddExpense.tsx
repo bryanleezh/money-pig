@@ -49,8 +49,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         }
     };
 
-    // TODO: Populate all currencies
-
     // Populate addedUsersArr through select 
     const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);

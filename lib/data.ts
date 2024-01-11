@@ -43,5 +43,6 @@ export const currencies = [
     { currency: 'Brazilian Real', label: 'BRL' },
     { currency: 'South African Rand', label: 'ZAR' },
     { currency: 'Hungarian Forint', label: 'HUF' },
+    { currency: 'Danish Krone', label: 'DKK' },
   ];
   
