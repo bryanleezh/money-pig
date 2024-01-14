@@ -51,7 +51,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 ) : (
                 <>
                     {tripsData.map((item: Trip, index) => (
-                        // TODO: Add dynamic routing to indiv trips page
+                        // TODO: Add button for deletion of trip
                         <Link key={index} href={`/trips/${item.uuid}`} passHref>
                             <div  className='mb-8 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>                                
                                 <div className='row-span-2 flex flex-col items-center pt-2'>

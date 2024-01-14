@@ -5,7 +5,7 @@ import { AccountInfoProps } from '@/lib/types';
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { Bike, Loader } from 'lucide-react';
-import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import firebase_app from '@/lib/firebase/config';
 import { v4 as uuidv4 } from 'uuid';
 import addData from '@/lib/firebase/firestore/addData';
@@ -94,15 +94,20 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
         try {
             // Add trip to trip collection
             const { result, error } = await addData('trips', uuid, tripData);
+            
             // Add trip to users 
-            for (var user of addedUsersArr) {
+            for (var user of updatedAddedUsersArr) {
+                if (!user) return 
                 const userDocRef = doc(db, 'users', user);
                 try {
-                    await updateDoc(userDocRef, {
-                        trips: {
-                            [uuid]: userTripData,
+                    await setDoc(userDocRef, 
+                        {
+                            trips: {
+                                [uuid]: userTripData,
+                            },
                         },
-                    });
+                        { merge: true }
+                    );
                     console.log(`Trip data added to user: ${user}`);
                 } catch (error) {
                     noError = true;
