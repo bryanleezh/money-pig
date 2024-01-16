@@ -77,6 +77,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                                 </Link>
                             </div>
                             <div className='col-span-1 flex justify-center mt-8 grid-rows-3'>
+                                {/* TODO: add delete button component for deleting trips with props of the trip uuid */}
                                 <Trash2 size={24} color='red' onClick={deleteTrip}/>
                             </div>
                         </div>
