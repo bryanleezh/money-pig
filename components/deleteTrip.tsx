@@ -1,1 +1,2 @@
 // TODO: add delete button using deleteData.ts, with props in the button with the trip uuid
+// can be used for deleting trip and also expense maybe? but might have to be seperate deleteData.ts function
