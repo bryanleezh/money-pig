@@ -37,11 +37,6 @@ const config: Config = {
         contentShow: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
       }
     },
-    // colors: {
-      // transparent: 'transparent',
-      // current: 'currentColor',
-      // primary: '#bae6fd',
-    // }
   },
   plugins: [],
 }
