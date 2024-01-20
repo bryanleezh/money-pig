@@ -9,6 +9,7 @@ import { useAuthContext } from '@/app/context/AuthContext';
 
 
 export default function DeleteTrip( { tripUUID } : TripUuid )  {
+    // get user email for deleting trip from user collection
     const { user } = useAuthContext();
     
     const deleteTrip = async() => {
