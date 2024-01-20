@@ -6,8 +6,7 @@ import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Accessibility, Trash2 } from 'lucide-react';
-import Loader from "./Loader";
-
+import { Loader, DeleteTrip } from '@/components';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
 
@@ -36,10 +35,6 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 setIsLoading(false);
             }
         }
-    }
-    
-    const deleteTrip = async() => {
-
     }
 
     React.useEffect(() => {
@@ -78,7 +73,8 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                             </div>
                             <div className='col-span-1 flex justify-center mt-8 grid-rows-3'>
                                 {/* TODO: add delete button component for deleting trips with props of the trip uuid */}
-                                <Trash2 size={24} color='red' onClick={deleteTrip}/>
+                                <DeleteTrip tripUUID={item.uuid} />
+                                {/* <Trash2 size={24} color='red' onClick={deleteTrip}/> */}
                             </div>
                         </div>
                     ))}
