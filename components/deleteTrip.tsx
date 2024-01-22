@@ -15,8 +15,12 @@ export default function DeleteTrip( { tripUUID } : TripUuid )  {
     const deleteTrip = async() => {
         // deletes trip from trips collection
         const { result, error } = await deleteData('trips', tripUUID);
-        // TODO: deletes trip from own user's trips
-
+        // TODO: need to update trips in users' collection
+    }
+    
+    // TODO: deletes trip from own user's trips
+    const deleteTripForUser = async() => {
+        
     }
 
     return (
@@ -38,13 +42,18 @@ export default function DeleteTrip( { tripUUID } : TripUuid )  {
                         </AlertDialog.Description>
                         <div className="flex justify-end gap-[25px]">
                             <AlertDialog.Cancel asChild>
-                                <button className="text-mauve11 bg-mauve4 hover:bg-mauve5 focus:shadow-mauve7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+                                <button onClick={deleteTrip} className="text-mauve11 bg-mauve4 hover:bg-mauve5 focus:shadow-mauve7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
                                     Cancel
                                 </button>
                             </AlertDialog.Cancel>
                             <AlertDialog.Action asChild>
-                                <button onClick={deleteTrip} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-                                    Yes, delete trip
+                                <button onClick={deleteTripForUser} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+                                    Delete trip for all users
+                                </button>
+                            </AlertDialog.Action>
+                            <AlertDialog.Action asChild>
+                                <button onClick={deleteTrip} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+                                    Delete trip for me
                                 </button>
                             </AlertDialog.Action>
                         </div>
