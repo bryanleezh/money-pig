@@ -6,7 +6,7 @@ import {Signup} from './Signup';
 import TripsSection from './TripsSection';
 import AddTrip from './AddTrip';
 import DeleteTrip from './DeleteTrip';
-import AlertDialogConfirmation from './ui/alertDialogConfirmation';
+import AlertDialogUI from './ui/alertDialogUI';
 import TripsTable from './TripsTable';
 import SingleTrip from './SingleTrip';
 import AddExpense from './AddExpense';
@@ -21,7 +21,7 @@ export {
     TripsSection,
     AddTrip,
     DeleteTrip,
-    AlertDialogConfirmation,
+    AlertDialogUI,
     TripsTable,
     SingleTrip,
     AddExpense,
