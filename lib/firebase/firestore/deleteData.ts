@@ -4,6 +4,8 @@ import { getFirestore, doc, deleteDoc, DocumentData } from "firebase/firestore";
 
 const db = getFirestore(firebase_app);
 
+// this function deletes a document from a particular collection
+// params: collection : string, documentid : string
 export default async function deleteData(
   collection: string,
   id: string
