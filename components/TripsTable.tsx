@@ -5,7 +5,7 @@ import { DocumentData, QuerySnapshot, collection, getDocs, getFirestore, query }
 import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
-import { Accessibility, Trash2 } from 'lucide-react';
+import { Accessibility } from 'lucide-react';
 import { Loader, DeleteTrip } from '@/components';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
@@ -16,25 +16,25 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
     const [tripsData, setTripsData] = React.useState<Trip[]>([]);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
+    // might change to getting data from user instead of trips collection
     const fetchTripData = async() => {
-        if (email !== null){
-            try {
-                const data: Trip[] = []; 
-                const q = query(tripsCollection);
-                const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
-                querySnapshot.forEach((doc) => {
-                    data.push(doc.data() as Trip);
-                });
-                
-                const filteredTrips = data.filter((trip) => trip.users.includes(email));
+        if (email === null) return;
+        try {
+            const data: Trip[] = []; 
+            const q = query(tripsCollection);
+            const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                data.push(doc.data() as Trip);
+            });
+            
+            const filteredTrips = data.filter((trip) => trip.users.includes(email));
 
-                setTripsData(filteredTrips);
-            } catch ( error ) {
-                console.error('Error fetching trip data: ', error)
-            } finally {
-                setIsLoading(false);
+            setTripsData(filteredTrips);
+        } catch ( error ) {
+            console.error('Error fetching trip data: ', error)
+        } finally {
+            setIsLoading(false);
             }
-        }
     }
 
     React.useEffect(() => {
@@ -51,9 +51,9 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 <>
                     {tripsData.map((item: Trip, index) => (
                         // TODO: Add button for deletion of trip with lucide React
-                        <div className='border-dotted border-gray-300 grid grid-cols-5'>
+                        <div key={item.uuid} className='border-dotted border-gray-300 grid grid-cols-5'>
                             <div className='col-span-4'>
-                                <Link key={index} href={`/trips/${item.uuid}`} passHref>
+                                <Link href={`/trips/${item.uuid}`} passHref>
                                     <div className='mb-5 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>                                
                                         <div className='row-span-2 flex flex-col items-center pt-2'>
                                             <Accessibility size={48} color='lightblue' />
