@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 
