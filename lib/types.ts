@@ -17,7 +17,7 @@ interface Trip {
     description: string;
     name: string;
     users: string[];
-    uuid: string;
+    id: string;
 }
 
 interface TripUuid {
