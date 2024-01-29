@@ -1,5 +1,3 @@
-// TODO: add delete button using deleteData.ts, with props in the button with the trip uuid
-// can be used for deleting trip and also expense maybe? but might have to be seperate deleteData.ts function
 'use client';
 
 import { TripUuid } from '@/lib/types';
@@ -15,17 +13,18 @@ export default function DeleteTrip( { tripUUID } : TripUuid )  {
     // get user email for deleting trip from user collection
     const { user } = useAuthContext();
     
+    // * Deletes trip from trips collection + own user's trips
     const deleteTrip = async() => {
         // deletes trip from trips collection
         await deleteData('trips', tripUUID);
-        // TODO: need to update trips in users' collection
+        // deletes trip from own user's trip
         await deleteTripFromUser( user?.email ?? '',tripUUID);
         setTimeout(() => {
             location.reload();
         },2000);
     }
     
-    // TODO: deletes trip from own user's trips
+    // * Deletes trip from own user's trips
     const deleteTripForUser = async() => {
         await deleteTripFromUser( user?.email ?? '',tripUUID);
         setTimeout(() => {
@@ -58,7 +57,7 @@ export default function DeleteTrip( { tripUUID } : TripUuid )  {
                             </AlertDialog.Cancel>
                             <AlertDialog.Action asChild>
                                 <button onClick={deleteTrip} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-                                    All Users
+                                    For Everyone
                                 </button>
                             </AlertDialog.Action>
                             <AlertDialog.Action asChild>
