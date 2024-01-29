@@ -7,6 +7,7 @@ import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Accessibility } from 'lucide-react';
 import { Loader, DeleteTrip } from '@/components';
+import getData from '@/lib/firebase/firestore/getData';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
 
@@ -19,17 +20,20 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
     // might change to getting data from user instead of trips collection
     const fetchTripData = async() => {
         if (email === null) return;
-        try {
-            const data: Trip[] = []; 
-            const q = query(tripsCollection);
-            const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
-            querySnapshot.forEach((doc) => {
-                data.push(doc.data() as Trip);
-            });
-            
-            const filteredTrips = data.filter((trip) => trip.users.includes(email));
+        const tripsdata: Trip[] = [];
 
-            setTripsData(filteredTrips);
+        try {
+            const {result, error }= await getData('users', email);
+            if (error) return;
+            if (!result?.exists()) return;
+
+            const tripsObj = result.data().trips;
+
+            for (let tripId in tripsObj) {
+                tripsdata.push(tripsObj[tripId] as Trip);
+            }
+            
+            setTripsData(tripsdata);
         } catch ( error ) {
             console.error('Error fetching trip data: ', error)
         } finally {
@@ -51,9 +55,9 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 <>
                     {tripsData.map((item: Trip, index) => (
                         // TODO: Add button for deletion of trip with lucide React
-                        <div key={item.uuid} className='border-dotted border-gray-300 grid grid-cols-5'>
+                        <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5'>
                             <div className='col-span-4'>
-                                <Link href={`/trips/${item.uuid}`} passHref>
+                                <Link href={`/trips/${item.id}`} passHref>
                                     <div className='mb-5 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>                                
                                         <div className='row-span-2 flex flex-col items-center pt-2'>
                                             <Accessibility size={48} color='lightblue' />
@@ -73,7 +77,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                             </div>
                             <div className='col-span-1 flex justify-center mt-8 grid-rows-3'>
                                 {/* TODO: add delete button component for deleting trips with props of the trip uuid */}
-                                <DeleteTrip tripUUID={item.uuid} />
+                                <DeleteTrip tripUUID={item.id} />
                                 {/* <Trash2 size={24} color='red' onClick={deleteTrip}/> */}
                             </div>
                         </div>
