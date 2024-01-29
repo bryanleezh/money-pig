@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { DocumentData, QuerySnapshot, collection, getDocs, getFirestore, query } from 'firebase/firestore';
+import { collection, getFirestore } from 'firebase/firestore';
 import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
