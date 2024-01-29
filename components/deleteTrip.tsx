@@ -1,5 +1,7 @@
 // TODO: add delete button using deleteData.ts, with props in the button with the trip uuid
 // can be used for deleting trip and also expense maybe? but might have to be seperate deleteData.ts function
+'use client';
+
 import { TripUuid } from '@/lib/types';
 import { Trash2 } from 'lucide-react';
 import React from 'react';
@@ -56,12 +58,12 @@ export default function DeleteTrip( { tripUUID } : TripUuid )  {
                             </AlertDialog.Cancel>
                             <AlertDialog.Action asChild>
                                 <button onClick={deleteTrip} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-                                    Delete trip for all users
+                                    All Users
                                 </button>
                             </AlertDialog.Action>
                             <AlertDialog.Action asChild>
                                 <button onClick={deleteTripForUser} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-                                    Delete trip for me
+                                    For Me
                                 </button>
                             </AlertDialog.Action>
                         </div>
