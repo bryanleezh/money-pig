@@ -6,6 +6,8 @@ import { useAuthContext } from '@/app/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Nav, SingleTrip } from '@/components';
 
+// TODO: Need to add conditional render for if tripid is not found
+
 const tripDetails = ({ 
     params
 }: {
