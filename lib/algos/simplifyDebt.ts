@@ -1,5 +1,7 @@
 // TODO: Add Simplify Debt Algo here
 
+import dfs from "./dfs";
+
 // * Function for simplifying all debts in a nested array of numbers 
 // @params transactions -> nested array of numbers [ ['from','to', 'amount'], ['from','to','amount'] ]
 
@@ -27,5 +29,5 @@ export default function simplifyDebt(transactions : number[][]) {
         }
     }
     
-    return;
+    return dfs(balances, 0);
 }
