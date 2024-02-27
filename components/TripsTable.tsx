@@ -17,7 +17,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
     const [tripsData, setTripsData] = React.useState<Trip[]>([]);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
-    // might change to getting data from user instead of trips collection
+    // Fetch data from users table
     const fetchTripData = async() => {
         if (email === null) return;
         const tripsdata: Trip[] = [];
@@ -76,9 +76,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                                 </Link>
                             </div>
                             <div className='col-span-1 flex justify-center mt-8 grid-rows-3'>
-                                {/* TODO: add delete button component for deleting trips with props of the trip uuid */}
                                 <DeleteTrip tripUUID={item.id} />
-                                {/* <Trash2 size={24} color='red' onClick={deleteTrip}/> */}
                             </div>
                         </div>
                     ))}
