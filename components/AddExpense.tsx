@@ -15,6 +15,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     // console.log(tripData);
     const { user } = useAuthContext();
     console.log(user?.email);
+    // TODO: Add logic for type of expense to add -> add tabs for different type of expense
 
     const db = getFirestore(firebase_app);
     // form data for adding new trip
