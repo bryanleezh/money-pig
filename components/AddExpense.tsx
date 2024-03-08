@@ -4,13 +4,69 @@ import React, { Fragment } from 'react';
 import { TripInfo } from '@/lib/types';
 import { currencies } from '@/lib/data';
 import firebase_app from '@/lib/firebase/config';
-import addData from '@/lib/firebase/firestore/addData';
-import { Transition, Dialog, Listbox } from '@headlessui/react';
+import { Transition, Dialog, Listbox, Tab } from '@headlessui/react';
 import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
 import { Bike, Check, ChevronDown, Loader } from 'lucide-react';
 import { useAuthContext } from '@/app/context/AuthContext';
 
+function classNames(...classes: any) {
+  return classes.filter(Boolean).join(' ')
+}
+
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
+
+  let [categories] = React.useState({
+    Recent: [
+      {
+        id: 1,
+        title: 'Does drinking coffee make you smarter?',
+        date: '5h ago',
+        commentCount: 5,
+        shareCount: 2,
+      },
+      {
+        id: 2,
+        title: "So you've bought coffee... now what?",
+        date: '2h ago',
+        commentCount: 3,
+        shareCount: 2,
+      },
+    ],
+    Popular: [
+      {
+        id: 1,
+        title: 'Is tech making coffee better or worse?',
+        date: 'Jan 7',
+        commentCount: 29,
+        shareCount: 16,
+      },
+      {
+        id: 2,
+        title: 'The most innovative things happening in coffee',
+        date: 'Mar 19',
+        commentCount: 24,
+        shareCount: 12,
+      },
+    ],
+    Trending: [
+      {
+        id: 1,
+        title: 'Ask Me Anything: 10 answers to your questions about coffee',
+        date: '2d ago',
+        commentCount: 9,
+        shareCount: 5,
+      },
+      {
+        id: 2,
+        title: "The worst advice we've ever heard about coffee",
+        date: '4d ago',
+        commentCount: 1,
+        shareCount: 2,
+      },
+    ],
+  })
+
+
     // console.log(tripUUID);
     // console.log(tripData);
     const { user } = useAuthContext();
@@ -18,29 +74,46 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     // TODO: Add logic for type of expense to add -> add tabs for different type of expense
 
     const db = getFirestore(firebase_app);
+
+    // Modal state
+    const [ isOpen, setIsOpen ] = React.useState<boolean>(false);
+
     // form data for adding new trip
     const [description, setDescription] = React.useState<string>('');
-    const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0])
+    const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0].label);
 
     const [addedUsersArr, setAddedUsersArr] = React.useState<string[]>([]);
     const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
 
-    // for form submission
-    const [isFormLoading, setIsFormLoading] = React.useState<boolean>(false);
-    const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
-
     // array for populating
     const [usersArr, setUsersArr] = React.useState<string[]>([]);
-
-    const [open, setOpen] = React.useState<boolean>(false);
-
-    const cancelButtonRef = React.useRef(null);
-
-    const handleOpenModal = () => {
-        setOpen(true);
-    };
     
     // Function to populate users from tripId into an array
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
+    }
+
+    const submitEqualExpense = () => {
+        setIsOpen(false);
+        // TODO: Add equal expense to firebase
+    }
+
+    const submitExactExpense = () => {
+        setIsOpen(false);
+        // TODO: Add equal expense to firebase
+    }
+
+    const submitPercentageExpense = () => {
+        setIsOpen(false);
+        // TODO: Add equal expense to firebase
+    }
+
+
     const retrieveUsers = () => {
         if (tripData){
             setUsersArr(tripData.users);
@@ -61,70 +134,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // Set submission loading state
-        setIsFormLoading(true);
-
-        // create uuid as document id
-        let noError: boolean = false;
-        // const uuid = uuidv4();
-        // const updatedAddedUsersArr = [...addedUsersArr, email];
-
-        // // data to be added to user data
-        // const userTripData = {
-        //     name: tripName,
-        //     description: description,
-        //     // UUID as id --> id will be used as value in table for onClick functionality
-        //     id: uuid,
-        //     users: updatedAddedUsersArr
-        // };
-
-        // // data to be added to trips collection
-        // const tripData = {
-        //     uuid: uuid,
-        //     name: tripName,
-        //     description: description,
-        //     users: updatedAddedUsersArr,
-        //     // TODO: Add other info here when implementing trips logic
-        // }
-
-        // try {
-        //     // Add trip to trip collection
-        //     const { result, error } = await addData('trips', uuid, tripData);
-        //     // Add trip to users 
-        //     for (var user of addedUsersArr) {
-        //         const userDocRef = doc(db, 'users', user);
-        //         try {
-        //             await updateDoc(userDocRef, {
-        //                 trips: {
-        //                     [uuid]: userTripData,
-        //                 },
-        //             });
-        //             console.log(`Trip data added to user: ${user}`);
-        //         } catch (error) {
-        //             noError = true;
-        //             console.error(`Error adding trip data to user ${user}`, error);
-        //         }
-        //     }
-
-            // TODO: Add creation of expense to Activity
-
-
-
-            
-            // if (!noError) {
-            //     setIsSuccess(true);
-            //     setTimeout(() => {
-            //         setIsSuccess(false);
-            //     }, 3000);
-            // }
-
-        // } finally {
-        //     setIsFormLoading(false);
-        //     setTimeout(() => {
-        //         location.reload();
-        //     },2000);
-        // }
-
     };
 
     React.useEffect(() => {
@@ -133,14 +142,19 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     
     return (
         <div>
-            <button
-                onClick={handleOpenModal}
+             <div className="flex items-center justify-center">
+                <button
+                type="button"
+                onClick={openModal}
+                // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
                 className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-            >
+                >
                 Add Expense
-            </button>
-            <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="fixed inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
+                </button>
+            </div>
+
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -150,184 +164,180 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed bg-gray-500 bg-opacity-75 transition-opacity" />
+                    <div className="fixed inset-0 bg-black/25" />
                 </Transition.Child>
-        
-                <div className="fixed z-10 w-full h-full flex items-center justify-center">
-                    <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                            enterTo="opacity-100 translate-y-0 sm:scale-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-                            leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                        >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                                <form className='form' onSubmit={handleForm}>
-                                    <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                        <div className="sm:flex sm:items-start">
-                                            <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                                                <Bike className="h-6 w-6 text-green-600" aria-hidden="true" />
-                                            </div>
-                                            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                                <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                                                Add a New Expense
-                                                </Dialog.Title>
 
-                                                <div className="grid grid-cols-5 gap-x-6 gap-y-8 sm:grid-cols-6">
-                                                    {/* Expense Description */}
-                                                    <div className="col-span-full">
-                                                        <label htmlFor="about" className="block text-sm font-medium leading-6 text-gray-900">
-                                                            Description:
-                                                        </label>
-                                                        <div className="mt-2">
-                                                            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                                <input
-                                                                    onChange={(e) => setDescription(e.target.value)}
-                                                                    required
-                                                                    type="text"
-                                                                    name="descriptiom"
-                                                                    id="description"
-                                                                    placeholder='Enter a description'
-                                                                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* Currency dropdown */}
-                                                    <div className='col-span-3'>
-                                                        <div className="top-16">
-                                                            <Listbox value={selectedCurrency} onChange={setSelectedCurrency}>
-                                                                <div className="relative mt-1">
-                                                                    <Listbox.Button className="relative w-full cursor-default rounded-lg py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                                                        <span className="block truncate text-gray-900">{selectedCurrency.label}</span>
-                                                                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                                                        <ChevronDown className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                                        </span>
-                                                                    </Listbox.Button>
-                                                                    <Transition
-                                                                        as={Fragment}
-                                                                        leave="transition ease-in duration-100"
-                                                                        leaveFrom="opacity-100"
-                                                                        leaveTo="opacity-0"
-                                                                    >
-                                                                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
-                                                                        {currencies.map((currency, currencyIdx) => (
-                                                                            <Listbox.Option
-                                                                            key={currencyIdx}
-                                                                            className={({ active }) =>
-                                                                                `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                                                                active ? 'bg-green-200 text-white' : 'text-gray-900'
-                                                                                }`
-                                                                            }
-                                                                            value={currency.label}
-                                                                            >
-                                                                            {({ selected }) => (
-                                                                                <>
-                                                                                <span
-                                                                                    className={`block truncate ${
-                                                                                    selected ? 'font-medium text-gray-900' : 'font-normal text-gray-400'
-                                                                                    }`}
-                                                                                >
-                                                                                    {currency.currency}
-                                                                                </span>
-                                                                                {selected ? (
-                                                                                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                                                    <Check className="h-5 w-5" aria-hidden="true" />
-                                                                                    </span>
-                                                                                ) : null}
-                                                                                </>
-                                                                            )}
-                                                                            </Listbox.Option>
-                                                                        ))}
-                                                                        </Listbox.Options>
-                                                                    </Transition>
-                                                                </div>
-                                                            </Listbox>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                    <div className="col-span-3">
-                                                        <div className="mt-2">
-                                                            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                                                                <input
-                                                                    onChange={(e) => setDescription(e.target.value)}
-                                                                    required
-                                                                    type="number"
-                                                                    name="currency"
-                                                                    id="currency"
-                                                                    placeholder='0.00'
-                                                                    className="block flex-1 border-0 bg-transparent pr-2 py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {/* TODO: Paid by who, split equally/not equally */}
-                                                    {/* DROPDOWN LIST Users */}
-                                                    <div className="sm:col-span-full">
-                                                        <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                                                            Who will you be going with?
-                                                            <p className="block text-sm font-medium leading-6 text-gray-500">If you are on desktop: hold cmd(Mac)/ctrl(Windows) to select multiple!</p>
-                                                        </label>              
-                                                        {
-                                                            isUsersLoading ?
-                                                            <Loader color='black' className='animate-spin-slow'/>:                         
-                                                            <div className="mt-2">
-                                                                <select
-                                                                    id="users"
-                                                                    name="users"
-                                                                    multiple={true}
-                                                                    value={addedUsersArr}
-                                                                    onChange={handleUserChange}
-                                                                    className="w-auto justify-center rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                                                                >
-                                                                {/* populate with users  with onclick event to add to form*/}
-                                                                {usersArr.map((id,index) => (
-                                                                    <option key={index} value={id}>
-                                                                        {id}
-                                                                    </option>
-                                                                ))}
-                                                                </select>
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                </div>
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                    >
+                        <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                        <Dialog.Title
+                            as="h3"
+                            className="text-lg font-medium leading-6 text-gray-900"
+                        >
+                            Add a new expense
+                        </Dialog.Title>
+                        <form className="mt-2">
+                            <p className="text-sm text-gray-500">
+                            Your payment has been successfully submitted. We’ve sent
+                            you an email with all of the details of your order.
+                            </p>
+                            {/*  Description */}
+                            <div>
+                                <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Description
+                                </label>
+                                <div className="relative mt-2 rounded-md shadow-sm">
+                                    <input
+                                        type="text"
+                                        name="description"
+                                        id="description"
+                                        className="block w-full rounded-md border-gray-300 border-solid py-1.5 px-4 text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-indigo-600 focus:border-transparent sm:text-sm"
+                                        placeholder="Enter description"
+                                        />
+                                </div>
+                            </div>
+                            {/* Currency */}
+                            <div>
+                                <label htmlFor="price" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Total Amount Spent
+                                </label>
+                                <div className="relative mt-2 rounded-md shadow-sm">
+                                    <input
+                                        type="number"
+                                        name="price"
+                                        id="price"
+                                        className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        placeholder="0.00"
+                                        />
+                                    <div className="absolute inset-y-0 right-0 flex items-center">
+                                        <label htmlFor="currency" className="sr-only">
+                                            Currency
+                                        </label>
+                                        <select
+                                            id="currency"
+                                            name="currency"
+                                            className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
+                                            >
+                                            {currencies.map((currency, currencyIdx) => (
+                                                <option key={currency.currency}>{currency.label}</option>
+                                                ))}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Tabs for type of expense */}
+                            <div className="w-full max-w-md px-2 py-2 sm:px-0">
+                                <Tab.Group>
+                                    <Tab.List className="flex space-x-1 rounded-xl bg-green-900/20 p-1">
+                                        <Tab className={({ selected }) =>
+                                            classNames(
+                                            'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
+                                            'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                            selected
+                                                ? 'bg-white text-green-700 shadow'
+                                                : 'text-black hover:bg-white/[0.12] hover:text-white'
+                                            )
+                                        }>Exact</Tab>
+                                        <Tab className={({ selected }) =>
+                                            classNames(
+                                            'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
+                                            'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                            selected
+                                                ? 'bg-white text-green-700 shadow'
+                                                : 'text-black hover:bg-white/[0.12] hover:text-white'
+                                            )
+                                        }>Equal</Tab>
+                                        <Tab className={({ selected }) =>
+                                            classNames(
+                                            'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
+                                            'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                            selected
+                                                ? 'bg-white text-green-700 shadow'
+                                                : 'text-black hover:bg-white/[0.12] hover:text-white'
+                                            )
+                                        }>Percentage</Tab>
+                                    </Tab.List>
+                                    <Tab.Panels className="mt-2">
+                                        {/* Put Add Expense button in tabs */}
+                                        <Tab.Panel className={classNames(
+                                                'rounded-xl p-3',
+                                                'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                                            )}
+                                        >
+                                             <div className="bg-gray-50 px-4 sm:flex sm:flex-row-reverse sm:px-6">
+                                                <button
+                                                    type="submit"
+                                                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                                    onClick={submitEqualExpense}
+                                                >
+                                                    Add Expense!
+                                                </button>
+                                                <button
+                                                type="button"
+                                                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                                onClick={closeModal}
+                                                >
+                                                    Cancel
+                                                </button>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                        <button
-                                            type="submit"
-                                            className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                            onClick={() => setOpen(false)}
-                                            disabled={isFormLoading}
-                                        >
-                                            {isFormLoading ? 'Submitting...' : 'Onwards!'}
-                                        </button>
-                                        <button
-                                        type="button"
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                        onClick={() => setOpen(false)}
-                                        ref={cancelButtonRef}
-                                        >
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </form>
-                            </Dialog.Panel>
-                        </Transition.Child>
+                                        </Tab.Panel>
+                                        {Object.values(categories).map((posts, idx) => (
+                                            <Tab.Panel
+                                                key={idx}
+                                                className={classNames(
+                                                    'rounded-xl p-3',
+                                                    'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                                                )}
+                                            >
+                                            <ul>
+                                                {posts.map((post) => (
+                                                <li
+                                                    key={post.id}
+                                                    className="relative rounded-md p-3 hover:bg-gray-100"
+                                                >
+                                                    <h3 className="text-sm font-medium leading-5 text-black">
+                                                        {post.title}
+                                                    </h3>
+
+                                                    <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-black">
+                                                    <li>{post.date}</li>
+                                                    <li>&middot;</li>
+                                                    <li>{post.commentCount} comments</li>
+                                                    <li>&middot;</li>
+                                                    <li>{post.shareCount} shares</li>
+                                                    </ul>
+
+                                                    <a
+                                                    href="#"
+                                                    className={classNames(
+                                                        'absolute inset-0 rounded-md',
+                                                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
+                                                    )}
+                                                    />
+                                                </li>
+                                                ))}
+                                            </ul>
+                                            </Tab.Panel>
+                                        ))}
+                                    </Tab.Panels>
+                                </Tab.Group>
+                            </div>
+                        </form>
+                        </Dialog.Panel>
+                    </Transition.Child>
                     </div>
                 </div>
                 </Dialog>
-            </Transition.Root>
-            {isSuccess && (
-                <div className='mt-3 text-center text-green-600'>
-                    <p>Expense Successfully Created!</p>
-                    <p>Page will now reload...</p>
-                </div>
-            )}
+            </Transition>
         </div>
     )
 }
