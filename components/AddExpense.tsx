@@ -238,15 +238,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                             <div className="w-full max-w-md px-2 py-2 sm:px-0">
                                 <Tab.Group>
                                     <Tab.List className="flex space-x-1 rounded-xl bg-green-900/20 p-1">
-                                        <Tab className={({ selected }) =>
-                                            classNames(
-                                            'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
-                                            'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-                                            selected
-                                                ? 'bg-white text-green-700 shadow'
-                                                : 'text-black hover:bg-white/[0.12] hover:text-white'
-                                            )
-                                        }>Exact</Tab>
+                                        {/* TODO: Add description to each tab on what each type is */}
                                         <Tab className={({ selected }) =>
                                             classNames(
                                             'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
@@ -256,6 +248,15 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                                 : 'text-black hover:bg-white/[0.12] hover:text-white'
                                             )
                                         }>Equal</Tab>
+                                        <Tab className={({ selected }) =>
+                                            classNames(
+                                            'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
+                                            'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                            selected
+                                                ? 'bg-white text-green-700 shadow'
+                                                : 'text-black hover:bg-white/[0.12] hover:text-white'
+                                            )
+                                        }>Exact</Tab>
                                         <Tab className={({ selected }) =>
                                             classNames(
                                             'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
