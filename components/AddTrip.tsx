@@ -54,8 +54,8 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
     };
 
     // Populate addedUsersArr through select 
-    const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);
+    const handleUserChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedOptions = Array.from(evt.target.selectedOptions).map(option => option.value);
         // console.log(selectedOptions);
         setAddedUsersArr(selectedOptions);
     }
