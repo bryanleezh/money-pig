@@ -14,56 +14,56 @@ function classNames(...classes: any) {
 
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
-  let [categories] = React.useState({
-    Recent: [
-      {
-        id: 1,
-        title: 'Does drinking coffee make you smarter?',
-        date: '5h ago',
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: '2h ago',
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Popular: [
-      {
-        id: 1,
-        title: 'Is tech making coffee better or worse?',
-        date: 'Jan 7',
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: 'The most innovative things happening in coffee',
-        date: 'Mar 19',
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
-    Trending: [
-      {
-        id: 1,
-        title: 'Ask Me Anything: 10 answers to your questions about coffee',
-        date: '2d ago',
-        commentCount: 9,
-        shareCount: 5,
-      },
-      {
-        id: 2,
-        title: "The worst advice we've ever heard about coffee",
-        date: '4d ago',
-        commentCount: 1,
-        shareCount: 2,
-      },
-    ],
-  })
+    let [categories] = React.useState({
+        Recent: [
+        {
+            id: 1,
+            title: 'Does drinking coffee make you smarter?',
+            date: '5h ago',
+            commentCount: 5,
+            shareCount: 2,
+        },
+        {
+            id: 2,
+            title: "So you've bought coffee... now what?",
+            date: '2h ago',
+            commentCount: 3,
+            shareCount: 2,
+        },
+        ],
+        Popular: [
+        {
+            id: 1,
+            title: 'Is tech making coffee better or worse?',
+            date: 'Jan 7',
+            commentCount: 29,
+            shareCount: 16,
+        },
+        {
+            id: 2,
+            title: 'The most innovative things happening in coffee',
+            date: 'Mar 19',
+            commentCount: 24,
+            shareCount: 12,
+        },
+        ],
+        Trending: [
+        {
+            id: 1,
+            title: 'Ask Me Anything: 10 answers to your questions about coffee',
+            date: '2d ago',
+            commentCount: 9,
+            shareCount: 5,
+        },
+        {
+            id: 2,
+            title: "The worst advice we've ever heard about coffee",
+            date: '4d ago',
+            commentCount: 1,
+            shareCount: 2,
+        },
+        ],
+    })
 
 
     // console.log(tripUUID);
@@ -82,13 +82,10 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const [amount, setAmount] = React.useState<number>(0);
     const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0].label);
 
-    const [addedUsersArr, setAddedUsersArr] = React.useState<string[]>([]);
-    const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
-
-    // array for populating
+    // Track all users
     const [usersArr, setUsersArr] = React.useState<string[]>([]);
+    const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
     
-    // Function to populate users from tripId into an array
 
     const closeModal = () => {
         setIsOpen(false);
@@ -126,13 +123,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             console.error("No valid trip UUID provided");
         }
     };
-
-    // Populate addedUsersArr through select 
-    const handleUserChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedOptions = Array.from(e.target.selectedOptions).map(option => option.value);
-        // console.log(selectedOptions);
-        setAddedUsersArr(selectedOptions);
-    }
 
     // TODO: Submit form to add data
     const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -261,6 +251,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                     </Tab.List>
                                     <Tab.Panels className="mt-2">
                                         {/* Put Add Expense button in tabs */}
+                                        {/* Equal Expense */}
                                         <Tab.Panel className={classNames(
                                                 'rounded-xl p-3',
                                                 'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
@@ -283,6 +274,11 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                                 </button>
                                             </div>
                                         </Tab.Panel>
+                                        {/* Unequal Expense */}
+                                        {/* TODO: Add each user on the trip */}
+
+                                        {/* Percentage Expense */}
+
                                         {Object.values(categories).map((posts, idx) => (
                                             <Tab.Panel
                                                 key={idx}
