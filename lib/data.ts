@@ -20,7 +20,6 @@ export const navbarLinks = [
     },
 ]
 
-
 export const currencies = [
     { currency: 'US Dollar', label: 'USD' },
     { currency: 'Euro', label: 'EUR' },
@@ -46,3 +45,8 @@ export const currencies = [
     { currency: 'Danish Krone', label: 'DKK' },
   ];
   
+  export const tabs = [
+    'Equal',
+    'Unequal',
+    'Percentage',
+  ]
