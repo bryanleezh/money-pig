@@ -79,6 +79,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
     // form data for adding new trip
     const [description, setDescription] = React.useState<string>('');
+    const [amount, setAmount] = React.useState<number>(0);
     const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0].label);
 
     const [addedUsersArr, setAddedUsersArr] = React.useState<string[]>([]);
@@ -95,6 +96,10 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
     const openModal = () => {
         setIsOpen(true);
+    }
+
+    const handleCurrencyChange = (evt: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCurrency(evt.target.value);
     }
 
     const submitEqualExpense = () => {
@@ -196,6 +201,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                 </label>
                                 <div className="relative mt-2 rounded-md shadow-sm">
                                     <input
+                                        onChange={(e) => setDescription(e.target.value)}
                                         type="text"
                                         name="description"
                                         id="description"
@@ -211,12 +217,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                 </label>
                                 <div className="relative mt-2 rounded-md shadow-sm">
                                     <input
+                                        onChange={(e) => setAmount(parseFloat(e.target.value))}
                                         type="number"
                                         name="price"
                                         id="price"
                                         className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                         placeholder="0.00"
-                                        />
+                                    />
                                     <div className="absolute inset-y-0 right-0 flex items-center">
                                         <label htmlFor="currency" className="sr-only">
                                             Currency
@@ -224,10 +231,12 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                         <select
                                             id="currency"
                                             name="currency"
+                                            value={selectedCurrency}
+                                            onChange={handleCurrencyChange}
                                             className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
-                                            >
+                                        >
                                             {currencies.map((currency, currencyIdx) => (
-                                                <option key={currency.currency}>{currency.label}</option>
+                                                <option key={currency.currency} value={currency.label}>{currency.label}</option>
                                                 ))}
                                         </select>
                                     </div>
