@@ -10,6 +10,7 @@ import { useAuthContext } from '@/app/context/AuthContext';
 
 
 export default function DeleteTrip( { tripUUID } : TripUuid )  {
+    // TODO: Might need to add suspense after deleting a trip
     // get user email for deleting trip from user collection
     const { user } = useAuthContext();
     
@@ -48,6 +49,9 @@ export default function DeleteTrip( { tripUUID } : TripUuid )  {
                         </AlertDialog.Title>
                         <AlertDialog.Description className="text-mauve11 mt-4 mb-5 text-[15px] leading-normal">
                             This action cannot be undone. This will permanently delete your trip and remove your data from our servers.
+                        </AlertDialog.Description>
+                        <AlertDialog.Description className="text-red10 mt-4 mb-5 text-[15px] leading-normal">
+                            After deleting, please wait for the screen to refresh before proceeding!
                         </AlertDialog.Description>
                         <div className="flex justify-end gap-[25px]">
                             <AlertDialog.Cancel asChild>
