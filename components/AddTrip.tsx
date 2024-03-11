@@ -71,6 +71,9 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
         let noError: boolean = false;
         const uuid = uuidv4();
         const updatedAddedUsersArr = [...addedUsersArr, email];
+        
+        // Convert array to obj
+        let finalUsersObj = updatedAddedUsersArr.reduce((obj, item, index) => ({ ...obj, [index]: item}), {});
 
         // data to be added to user data
         const userTripData = {
@@ -78,7 +81,8 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             description: description,
             // UUID as id --> id will be used as value in table for onClick functionality
             id: uuid,
-            users: updatedAddedUsersArr
+            // users: updatedAddedUsersArr
+            users: finalUsersObj
         };
 
         // data to be added to trips collection
@@ -86,7 +90,8 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             uuid: uuid,
             name: tripName,
             description: description,
-            users: updatedAddedUsersArr,
+            // users: updatedAddedUsersArr,
+            users: finalUsersObj,
             // TODO: Add other info here when implementing trips logic
             expenses: [],
             // expensesLog stores each expense desc and list of transactions
