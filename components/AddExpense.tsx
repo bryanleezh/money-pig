@@ -251,6 +251,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                     </Tab.List>
                                     <Tab.Panels className="mt-2">
                                         {/* Put Add Expense button in tabs */}
+                                        {/* Create separate components for each tab */}
                                         {/* Equal Expense */}
                                         <Tab.Panel className={classNames(
                                                 'rounded-xl p-3',
