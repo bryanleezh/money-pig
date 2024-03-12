@@ -81,7 +81,6 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             description: description,
             // UUID as id --> id will be used as value in table for onClick functionality
             id: uuid,
-            // users: updatedAddedUsersArr
             users: finalUsersObj
         };
 
@@ -90,7 +89,6 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             uuid: uuid,
             name: tripName,
             description: description,
-            // users: updatedAddedUsersArr,
             users: finalUsersObj,
             // TODO: Add other info here when implementing trips logic
             expenses: [],
