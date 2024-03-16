@@ -7,7 +7,8 @@ function classNames(...classes: any) {
 }
 
 export default function ExpenseEqualTab() {
-    // TODO: Add tab for equal expense
+    // TODO: Add tab for equal expense logic for form submission
+    // TODO: Can add events up
     // return (
     //     <Tab.Panel className={classNames(
     //             'rounded-xl p-3',
