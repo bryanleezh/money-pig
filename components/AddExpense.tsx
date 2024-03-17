@@ -7,64 +7,13 @@ import firebase_app from '@/lib/firebase/config';
 import { Transition, Dialog, Tab } from '@headlessui/react';
 import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
 import { useAuthContext } from '@/app/context/AuthContext';
+import ExpenseEqualTab from './ExpenseEqualTab';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
-
-    let [categories] = React.useState({
-        Recent: [
-        {
-            id: 1,
-            title: 'Does drinking coffee make you smarter?',
-            date: '5h ago',
-            commentCount: 5,
-            shareCount: 2,
-        },
-        {
-            id: 2,
-            title: "So you've bought coffee... now what?",
-            date: '2h ago',
-            commentCount: 3,
-            shareCount: 2,
-        },
-        ],
-        Popular: [
-        {
-            id: 1,
-            title: 'Is tech making coffee better or worse?',
-            date: 'Jan 7',
-            commentCount: 29,
-            shareCount: 16,
-        },
-        {
-            id: 2,
-            title: 'The most innovative things happening in coffee',
-            date: 'Mar 19',
-            commentCount: 24,
-            shareCount: 12,
-        },
-        ],
-        Trending: [
-        {
-            id: 1,
-            title: 'Ask Me Anything: 10 answers to your questions about coffee',
-            date: '2d ago',
-            commentCount: 9,
-            shareCount: 5,
-        },
-        {
-            id: 2,
-            title: "The worst advice we've ever heard about coffee",
-            date: '4d ago',
-            commentCount: 1,
-            shareCount: 2,
-        },
-        ],
-    })
-
 
     // console.log(tripUUID);
     // console.log(tripData);
@@ -102,6 +51,19 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitEqualExpense = () => {
         setIsOpen(false);
         // TODO: Add equal expense to firebase
+        console.log("submitting equal expense...");
+    }
+
+    const submitIndivExpense = () => {
+        setIsOpen(false);
+        // TODO: Add equal expense to firebase
+        console.log("submitting indiv expense...");
+    }
+
+    const submitBestieExpense = () => {
+        setIsOpen(false);
+        // TODO: Add equal expense to firebase
+        console.log("submitting bestie expense...");
     }
 
     const submitExactExpense = () => {
@@ -127,7 +89,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     // TODO: Submit form to add data
     const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        console.log("submit form");
     };
 
     React.useEffect(() => {
@@ -253,14 +215,10 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                         {/* Put Add Expense button in tabs */}
                                         {/* Create separate components for each tab */}
                                         {/* Equal Expense */}
-                                        <Tab.Panel className={classNames(
-                                                'rounded-xl p-3',
-                                                'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-                                            )}
-                                        >
+                                        {/* <Tab.Panel className="rounded-xl p-3 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2">
                                              <div className="bg-gray-50 px-4 sm:flex sm:flex-row-reverse sm:px-6">
                                                 <button
-                                                    type="submit"
+                                                    type="button"
                                                     className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
                                                     onClick={submitEqualExpense}
                                                 >
@@ -274,50 +232,14 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                                     Cancel
                                                 </button>
                                             </div>
-                                        </Tab.Panel>
+                                        </Tab.Panel> */}
+                                        <ExpenseEqualTab submitEqualExpense={submitEqualExpense} closeModal={closeModal}/>
                                         {/* Unequal Expense */}
                                         {/* TODO: Add each user on the trip */}
 
                                         {/* Percentage Expense */}
 
-                                        {Object.values(categories).map((posts, idx) => (
-                                            <Tab.Panel
-                                                key={idx}
-                                                className={classNames(
-                                                    'rounded-xl p-3',
-                                                    'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
-                                                )}
-                                            >
-                                            <ul>
-                                                {posts.map((post) => (
-                                                <li
-                                                    key={post.id}
-                                                    className="relative rounded-md p-3 hover:bg-gray-100"
-                                                >
-                                                    <h3 className="text-sm font-medium leading-5 text-black">
-                                                        {post.title}
-                                                    </h3>
-
-                                                    <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-black">
-                                                    <li>{post.date}</li>
-                                                    <li>&middot;</li>
-                                                    <li>{post.commentCount} comments</li>
-                                                    <li>&middot;</li>
-                                                    <li>{post.shareCount} shares</li>
-                                                    </ul>
-
-                                                    <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        'absolute inset-0 rounded-md',
-                                                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                                                    )}
-                                                    />
-                                                </li>
-                                                ))}
-                                            </ul>
-                                            </Tab.Panel>
-                                        ))}
+                                        
                                     </Tab.Panels>
                                 </Tab.Group>
                             </div>
