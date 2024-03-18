@@ -38,6 +38,11 @@ interface DeleteResult {
     error: any;
 }
 
+interface ExpenseEqualTabProps {
+    submitEqualExpense: () => void;
+    closeModal: () => void;
+}
+
 export type {
     AccountInfoProps,
     AccountCardProps,
@@ -46,4 +51,5 @@ export type {
     TripInfo,
     AddDataResult,
     DeleteResult,
+    ExpenseEqualTabProps,
 }
