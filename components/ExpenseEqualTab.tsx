@@ -1,11 +1,7 @@
 'use client';
 
+import { ExpenseEqualTabProps } from "@/lib/types";
 import { Tab } from "@headlessui/react";
-
-interface ExpenseEqualTabProps {
-    submitEqualExpense: () => void;
-    closeModal: () => void;
-}
 
 export default function ExpenseEqualTab( { submitEqualExpense, closeModal }: ExpenseEqualTabProps ) {
     // TODO: Add tab for equal expense logic for form submission
