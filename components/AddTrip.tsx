@@ -90,7 +90,14 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             name: tripName,
             description: description,
             users: finalUsersObj,
+            // totalExpense stores the total amount spent in each currency, each user is represented by their index
+            totalExpense: {
+                0: {},
+                1: {},
+            },
             // TODO: Add other info here when implementing trips logic
+            userExpense: {},
+            // expenses stores who paid how much so that simplify debt logic can be used
             expenses: [],
             // expensesLog stores each expense desc and list of transactions
             expensesLog: {
@@ -150,14 +157,18 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
     
     return (
         <div>
-            <button
-                onClick={handleOpenModal}
-                className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
-            >
-                Create New Trip
-            </button>
-            <Transition.Root show={open} as={Fragment}>
-                <Dialog as="div" className="fixed inset-0 overflow-y-auto" initialFocus={cancelButtonRef} onClose={setOpen}>
+            <div className="flex items-center justify-center">
+                <button
+                    type="button"
+                    onClick={handleOpenModal}
+                    // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                    className="inline-flex w-50 justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                >
+                    Create New Trip
+                </button>
+            </div>
+            <Transition show={open} as={Fragment}>
+                <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -170,7 +181,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                     <div className="fixed bg-gray-500 bg-opacity-75 transition-opacity" />
                 </Transition.Child>
         
-                <div className="fixed z-10 w-full h-full flex items-center justify-center">
+                <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <Transition.Child
                             as={Fragment}
@@ -286,7 +297,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                     </div>
                 </div>
                 </Dialog>
-            </Transition.Root>
+            </Transition>
             {isSuccess && (
                 <div className='mt-3 text-center text-green-600'>
                     <p>Trip Successfully Created!</p>
