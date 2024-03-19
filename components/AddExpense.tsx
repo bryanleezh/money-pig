@@ -7,7 +7,7 @@ import firebase_app from '@/lib/firebase/config';
 import { Transition, Dialog, Tab } from '@headlessui/react';
 import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
 import { useAuthContext } from '@/app/context/AuthContext';
-import ExpenseEqualTab from './ExpenseEqualTab';
+import ExpenseTab from './ExpenseTab';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -50,32 +50,26 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
     const submitEqualExpense = () => {
         setIsOpen(false);
-        // TODO: Add equal expense to firebase
         console.log("submitting equal expense...");
     }
 
     const submitIndivExpense = () => {
         setIsOpen(false);
-        // TODO: Add equal expense to firebase
         console.log("submitting indiv expense...");
     }
 
     const submitBestieExpense = () => {
         setIsOpen(false);
-        // TODO: Add equal expense to firebase
         console.log("submitting bestie expense...");
     }
 
     const submitExactExpense = () => {
         setIsOpen(false);
-        // TODO: Add equal expense to firebase
     }
 
     const submitPercentageExpense = () => {
         setIsOpen(false);
-        // TODO: Add equal expense to firebase
     }
-
 
     const retrieveUsers = () => {
         if (tripData){
@@ -98,17 +92,16 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     
     return (
         <div>
-             <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center">
                 <button
-                type="button"
-                onClick={openModal}
-                // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-                className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                    type="button"
+                    onClick={openModal}
+                    // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
                 >
-                Add Expense
+                    Add Expense
                 </button>
             </div>
-
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                 <Transition.Child
@@ -212,34 +205,14 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                         ))}
                                     </Tab.List>
                                     <Tab.Panels className="mt-2">
-                                        {/* Put Add Expense button in tabs */}
-                                        {/* Create separate components for each tab */}
-                                        {/* Equal Expense */}
-                                        {/* <Tab.Panel className="rounded-xl p-3 ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2">
-                                             <div className="bg-gray-50 px-4 sm:flex sm:flex-row-reverse sm:px-6">
-                                                <button
-                                                    type="button"
-                                                    className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-                                                    onClick={submitEqualExpense}
-                                                >
-                                                    Add Expense!
-                                                </button>
-                                                <button
-                                                type="button"
-                                                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                                                onClick={closeModal}
-                                                >
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </Tab.Panel> */}
-                                        <ExpenseEqualTab submitEqualExpense={submitEqualExpense} closeModal={closeModal}/>
+                                        <ExpenseTab type="equal" submitExpense={submitEqualExpense} closeModal={closeModal} />
+                                        <ExpenseTab type="indiv" submitExpense={submitIndivExpense} closeModal={closeModal} />
+                                        <ExpenseTab type="bestie" submitExpense={submitBestieExpense} closeModal={closeModal} />
+                                        
+                                        {/* TODO */}
                                         {/* Unequal Expense */}
-                                        {/* TODO: Add each user on the trip */}
-
                                         {/* Percentage Expense */}
 
-                                        
                                     </Tab.Panels>
                                 </Tab.Group>
                             </div>
