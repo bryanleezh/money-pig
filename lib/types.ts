@@ -43,6 +43,12 @@ interface ExpenseEqualTabProps {
     closeModal: () => void;
 }
 
+interface ExpenseTabProps {
+    type: "equal" | "indiv" | "bestie";
+    submitExpense: () => void;
+    closeModal: () => void;
+}
+
 export type {
     AccountInfoProps,
     AccountCardProps,
@@ -52,4 +58,5 @@ export type {
     AddDataResult,
     DeleteResult,
     ExpenseEqualTabProps,
+    ExpenseTabProps,
 }
