@@ -38,11 +38,6 @@ interface DeleteResult {
     error: any;
 }
 
-interface ExpenseEqualTabProps {
-    submitEqualExpense: () => void;
-    closeModal: () => void;
-}
-
 interface ExpenseTabProps {
     type: "equal" | "indiv" | "bestie";
     submitExpense: () => void;
@@ -57,6 +52,5 @@ export type {
     TripInfo,
     AddDataResult,
     DeleteResult,
-    ExpenseEqualTabProps,
     ExpenseTabProps,
 }
