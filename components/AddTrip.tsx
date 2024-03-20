@@ -94,6 +94,12 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             // totalExpense stores the total amount spent in each currency, each user is represented by their index
             totalExpense: {},
             // TODO: Add other info here when implementing trips logic
+            // expenses by each user, usersExpense stores each user as the key, and an object
+            // eg {
+                // "user1":{
+            //         "SEK": 100,
+            //         "USD": 100,
+            // }
             usersExpense: usersExpense,
             // expenses stores who paid how much so that simplify debt logic can be used
             expenses: [],
