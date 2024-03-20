@@ -51,16 +51,22 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitEqualExpense = () => {
         setIsOpen(false);
         console.log("submitting equal expense...");
+        // TODO: Add expense to user document totalExpense
+        // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
     }
 
     const submitIndivExpense = () => {
         setIsOpen(false);
         console.log("submitting indiv expense...");
+        // TODO: Add expense to user document totalExpense
+        // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
     }
 
     const submitBestieExpense = () => {
         setIsOpen(false);
         console.log("submitting bestie expense...");
+        // TODO: Add expense to user document totalExpense
+        // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
     }
 
     const submitExactExpense = () => {
