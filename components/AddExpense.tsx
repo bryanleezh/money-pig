@@ -5,9 +5,14 @@ import { TripInfo } from '@/lib/types';
 import { currencies, tabs } from '@/lib/data';
 import firebase_app from '@/lib/firebase/config';
 import { Transition, Dialog, Tab } from '@headlessui/react';
-import { getFirestore, getDoc, collection, doc, updateDoc, DocumentData } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { useAuthContext } from '@/app/context/AuthContext';
 import ExpenseTab from './ExpenseTab';
+import addTotalTripExpense from '@/lib/expenses/addTotalTripExpense';
+import addExpenseLog from '@/lib/expenses/addExpenseLog';
+import addExpense from '@/lib/expenses/addExpense';
+import addUserExpense from '@/lib/expenses/addUserExpense';
+import addUserExpensePaid from '@/lib/expenses/addUserExpensePaid';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -16,9 +21,12 @@ function classNames(...classes: any) {
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
     // console.log(tripUUID);
-    // console.log(tripData);
+    console.log(tripData);
     const { user } = useAuthContext();
-    console.log(user?.email);
+    // console.log(user?.email);
+    const userEmail = user?.email;
+    // TODO: Initialise the other persons email if the trip has 2 users instead of just one, if there is only one person's email, just need to show the buttons without the tab
+
     // TODO: Add logic for type of expense to add -> add tabs for different type of expense
 
     const db = getFirestore(firebase_app);
@@ -30,11 +38,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const [description, setDescription] = React.useState<string>('');
     const [amount, setAmount] = React.useState<number>(0);
     const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0].label);
-
-    // Track all users
-    const [usersArr, setUsersArr] = React.useState<string[]>([]);
-    const [isUsersLoading, setIsUsersLoading] = React.useState<boolean>(true);
-    
 
     const closeModal = () => {
         setIsOpen(false);
@@ -53,6 +56,9 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         console.log("submitting equal expense...");
         // TODO: Add expense to user document totalExpense
         // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
+        if (!user || !tripUUID) console.error( "User or tripUUID not found" );
+        addTotalTripExpense(amount, tripUUID, selectedCurrency);
+        addExpenseLog(amount, description, tripUUID, selectedCurrency, "equal");
     }
 
     const submitIndivExpense = () => {
@@ -60,6 +66,14 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         console.log("submitting indiv expense...");
         // TODO: Add expense to user document totalExpense
         // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
+        if (!user || !tripUUID) console.error( "User or tripUUID not found" );
+        addTotalTripExpense(amount, tripUUID, selectedCurrency);
+        addExpenseLog(amount, description, tripUUID, selectedCurrency, "indiv");
+        if (tripData && userEmail) {
+            // addExpense(tripData.users[userEmail], tripData.users[userEmail], amount, tripUUID, selectedCurrency);
+            addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
+            addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
+        }
     }
 
     const submitBestieExpense = () => {
@@ -67,6 +81,9 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         console.log("submitting bestie expense...");
         // TODO: Add expense to user document totalExpense
         // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
+        if (!user || !tripUUID) console.error( "User or tripUUID not found" );
+        addTotalTripExpense(amount, tripUUID, selectedCurrency);
+        addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
     }
 
     const submitExactExpense = () => {
@@ -77,24 +94,11 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         setIsOpen(false);
     }
 
-    const retrieveUsers = () => {
-        if (tripData){
-            setUsersArr(tripData.users);
-            setIsUsersLoading(false);
-        } else {
-            console.error("No valid trip UUID provided");
-        }
-    };
-
     // TODO: Submit form to add data
     const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log("submit form");
     };
-
-    React.useEffect(() => {
-        retrieveUsers();
-    }, []);
     
     return (
         <div>
