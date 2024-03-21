@@ -13,7 +13,7 @@ export default function ExpenseTab( { type, submitExpense, closeModal}: ExpenseT
             description = "This is your own individual expense.";
             break;
         case "bestie":
-            description = "This expense is for your bestie only.";
+            description = "This expense is for your bestie only. (You are paying 1st, but your bestie owes you money!)";
             break;
         default:
             description = "";
