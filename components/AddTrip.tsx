@@ -74,7 +74,13 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
         
         // Convert array to obj
         let usersExpense = updatedAddedUsersArr.reduce<{ [key: string]: {} }>((obj, item) => ({ ...obj, [item as string]: {} }), {});
-        let finalUsersObj = updatedAddedUsersArr.reduce((obj, item, index) => ({ ...obj, [index]: item}), {});
+        // let finalUsersObj = updatedAddedUsersArr.reduce((obj, item, index) => ({ ...obj, [item]: index}), {});
+        let finalUsersObj = updatedAddedUsersArr.reduce((obj, item, index) => {
+            if (item !== null) {
+                return { ...obj, [item]: index };
+            }
+            return obj;
+        }, {});
 
         // data to be added to user data
         const userTripData = {
@@ -101,13 +107,15 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             //         "USD": 100,
             // }
             usersExpense: usersExpense,
+            // expenses paid by each user
+            usersExpensePaid: usersExpense,
             // expenses stores who paid how much so that simplify debt logic can be used
-            expenses: [],
+            expenses: {},
             // expensesLog stores each expense desc and list of transactions
-            expensesLog: {
+            expensesLog: [
                 // desc: "hi",
                 // transactions: []
-            },
+            ],
         }
 
         try {
