@@ -70,6 +70,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "indiv");
         if (tripData && userEmail) {
+            // ! TODO: addExpense doesn't work for now
             // addExpense(tripData.users[userEmail], tripData.users[userEmail], amount, tripUUID, selectedCurrency);
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
