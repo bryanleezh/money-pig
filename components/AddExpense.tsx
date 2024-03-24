@@ -85,6 +85,14 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
+        if (tripData && userEmail) {
+            // TODO: Add userexpense for bestie
+            addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
+        }
+    }
+
+    const submitForBestieExpense = () => {
+        // TODO: Add expense for bestie, which logs for the bestie
     }
 
     const submitExactExpense = () => {
