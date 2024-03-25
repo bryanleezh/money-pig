@@ -18,6 +18,9 @@ export default function ExpenseTab( { type, submitExpense, closeModal}: ExpenseT
         case "bestiepay":
             description = "This expense logs for your bestie only. (Your bestie is paying for himself/herself!)";
             break;
+        case "bestiepayforyou":
+            description = "This expense logs for your bestie only. (Your bestie is paying for you!)";
+            break;
         default:
             description = "";
             break;
