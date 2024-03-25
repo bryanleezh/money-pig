@@ -39,7 +39,7 @@ interface DeleteResult {
 }
 
 interface ExpenseTabProps {
-    type: "equal" | "indiv" | "bestie";
+    type: "equal" | "indiv" | "bestie" | "bestiepay";
     submitExpense: () => void;
     closeModal: () => void;
 }
