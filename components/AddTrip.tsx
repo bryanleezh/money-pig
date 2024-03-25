@@ -95,7 +95,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             description: description,
             // UUID as id --> id will be used as value in table for onClick functionality
             id: uuid,
-            users: finalUsersObj
+            users: allEmails
         };
 
         // data to be added to trips collection
@@ -103,7 +103,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             uuid: uuid,
             name: tripName,
             description: description,
-            users: finalUsersObj,
+            users: allEmails,
             // totalExpense stores the total amount spent in each currency, each user is represented by their index
             totalExpense: {},
             // TODO: Add other info here when implementing trips logic
