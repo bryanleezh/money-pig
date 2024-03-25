@@ -92,6 +92,8 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     }
 
     const submitForBestieExpense = () => {
+        setIsOpen(false);
+        console.log("submitting for bestie...");
         // TODO: Add expense for bestie, which logs for the bestie
     }
 
@@ -227,6 +229,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                         <ExpenseTab type="equal" submitExpense={submitEqualExpense} closeModal={closeModal} />
                                         <ExpenseTab type="indiv" submitExpense={submitIndivExpense} closeModal={closeModal} />
                                         <ExpenseTab type="bestie" submitExpense={submitBestieExpense} closeModal={closeModal} />
+                                        <ExpenseTab type="bestiepay" submitExpense={submitForBestieExpense} closeModal={closeModal} />
                                         
                                         {/* TODO */}
                                         {/* Unequal Expense */}
