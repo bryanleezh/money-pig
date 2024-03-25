@@ -23,8 +23,19 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     // console.log(tripUUID);
     console.log(tripData);
     const { user } = useAuthContext();
-    // console.log(user?.email);
     const userEmail = user?.email;
+    const totalUsersCount: number = Object.keys(tripData?.users).length;
+    const isSingleUser: boolean = totalUsersCount<2 ? true : false;
+    var bestieEmail = "";
+    if (!isSingleUser) {
+        for (let i = 0; i < tripData!.users.length; i++) {
+            console.log(tripData!.users[i]);
+            if (tripData!.users[i] !== userEmail) {
+                bestieEmail = tripData!.users[i];
+            }
+        }
+    }
+
     // TODO: Initialise the other persons email if the trip has 2 users instead of just one, if there is only one person's email, just need to show the buttons without the tab
 
     // TODO: Add logic for type of expense to add -> add tabs for different type of expense
@@ -54,11 +65,18 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitEqualExpense = () => {
         setIsOpen(false);
         console.log("submitting equal expense...");
+        let splitAmount = amount/2;
         // TODO: Add expense to user document totalExpense
         // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "equal");
+        if (tripData && userEmail) {
+            addUserExpense(splitAmount, userEmail, tripUUID, selectedCurrency);
+            addUserExpense(splitAmount, bestieEmail, tripUUID, selectedCurrency);
+            addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
+        }
+
     }
 
     const submitIndivExpense = () => {
@@ -86,7 +104,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
-            // TODO: Add userexpense for bestie
+            addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
         }
     }
@@ -95,6 +113,26 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         setIsOpen(false);
         console.log("submitting for bestie...");
         // TODO: Add expense for bestie, which logs for the bestie
+        if (!user || !tripUUID) console.error( "User or tripUUID not found" );
+        addTotalTripExpense(amount, tripUUID, selectedCurrency);
+        addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
+        if (tripData && userEmail) {
+            addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
+            addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
+        }
+    }
+
+    const submitBestieExpenseForYou = () => {
+        setIsOpen(false);
+        console.log("submitting for bestie...");
+        // TODO: Add expense for bestie, which logs for the bestie
+        if (!user || !tripUUID) console.error( "User or tripUUID not found" );
+        addTotalTripExpense(amount, tripUUID, selectedCurrency);
+        addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
+        if (tripData && userEmail) {
+            addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
+            addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
+        }
     }
 
     const submitExactExpense = () => {
@@ -210,33 +248,59 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                             </div>
                             {/* Tabs for type of expense */}
                             <div className="w-full max-w-md px-2 py-2 sm:px-0">
-                                <Tab.Group>
-                                    <Tab.List className="flex space-x-1 rounded-xl bg-green-900/20 p-1">
-                                        {/* TODO: Add description to each tab on what each type is */}
-                                        {tabs.map((tab, index) => (
-                                            <Tab key={index} className={({ selected }) =>
-                                                classNames(
-                                                'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
-                                                'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
-                                                selected
-                                                    ? 'bg-white text-green-700 shadow'
-                                                    : 'text-black hover:bg-white/[0.12] hover:text-white'
-                                                )
-                                            }>{tab}</Tab>    
-                                        ))}
-                                    </Tab.List>
-                                    <Tab.Panels className="mt-2">
-                                        <ExpenseTab type="equal" submitExpense={submitEqualExpense} closeModal={closeModal} />
-                                        <ExpenseTab type="indiv" submitExpense={submitIndivExpense} closeModal={closeModal} />
-                                        <ExpenseTab type="bestie" submitExpense={submitBestieExpense} closeModal={closeModal} />
-                                        <ExpenseTab type="bestiepay" submitExpense={submitForBestieExpense} closeModal={closeModal} />
-                                        
-                                        {/* TODO */}
-                                        {/* Unequal Expense */}
-                                        {/* Percentage Expense */}
+                                {isSingleUser ? (
+                                    <>
+                                        <div className="flex flex-col items-center justify-center">
+                                            <p className="text-black pb-4">{description}</p>
+                                        </div>
+                                        <div className="bg-gray-50 px-4 sm:flex sm:flex-row-reverse sm:px-6">
+                                            <button
+                                                type="button"
+                                                className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+                                                onClick={submitIndivExpense}
+                                            >
+                                                Add Expense!
+                                            </button>
+                                            <button
+                                            type="button"
+                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                                            onClick={closeModal}
+                                            >
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <Tab.Group>
+                                        <Tab.List className="flex space-x-1 rounded-xl bg-green-900/20 p-1">
+                                            {/* TODO: Add description to each tab on what each type is */}
+                                            {tabs.map((tab, index) => (
+                                                <Tab key={index} className={({ selected }) =>
+                                                    classNames(
+                                                    'w-full rounded-lg py-2.5 text-sm font-medium leading-5',
+                                                    'ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                                    selected
+                                                        ? 'bg-white text-green-700 shadow'
+                                                        : 'text-black hover:bg-white/[0.12] hover:text-white'
+                                                    )
+                                                }>{tab}</Tab>    
+                                            ))}
+                                        </Tab.List>
+                                        <Tab.Panels className="mt-2">
+                                            <ExpenseTab type="equal" submitExpense={submitEqualExpense} closeModal={closeModal} />
+                                            <ExpenseTab type="indiv" submitExpense={submitIndivExpense} closeModal={closeModal} />
+                                            <ExpenseTab type="bestie" submitExpense={submitBestieExpense} closeModal={closeModal} />
+                                            <ExpenseTab type="bestiepay" submitExpense={submitForBestieExpense} closeModal={closeModal} />
+                                            <ExpenseTab type="bestiepayforyou" submitExpense={submitBestieExpenseForYou} closeModal={closeModal} />
+                                            
+                                            {/* TODO */}
+                                            {/* Unequal Expense */}
+                                            {/* Percentage Expense */}
 
-                                    </Tab.Panels>
-                                </Tab.Group>
+                                        </Tab.Panels>
+                                    </Tab.Group>
+                                )}
+                                
                             </div>
                         </form>
                         </Dialog.Panel>
