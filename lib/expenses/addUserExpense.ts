@@ -8,6 +8,11 @@ export default async function addUserExpense(amount: number, personEmail: string
     const db = getFirestore(firebase_app);
     const tripDocRef = doc(db, 'trips', uuid);
 
+    const atIndex = personEmail.lastIndexOf('@');
+    if (atIndex !== -1) {
+        personEmail = personEmail.substring(0, atIndex);
+    }
+
     try {
         await updateDoc(tripDocRef, {
             [`usersExpense.${personEmail}.${currency}`]: increment(amount)
