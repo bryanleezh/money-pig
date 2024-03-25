@@ -70,14 +70,21 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
         // create uuid as document id
         let noError: boolean = false;
         const uuid = uuidv4();
-        const updatedAddedUsersArr = [...addedUsersArr, email];
-        
+        const allEmails = [...addedUsersArr, email];
+        const updatedAddedUsersArr = allEmails.map(email => {
+            if (!email) return;
+            const atIndex = email.lastIndexOf('@'); // Find the last occurrence of '@'
+            if (atIndex !== -1) {
+                return email.substring(0, atIndex); // Extract the substring before '@'
+            }
+            return email; // If '@' is not found, return the original email
+        });
         // Convert array to obj
         let usersExpense = updatedAddedUsersArr.reduce<{ [key: string]: {} }>((obj, item) => ({ ...obj, [item as string]: {} }), {});
         // let finalUsersObj = updatedAddedUsersArr.reduce((obj, item, index) => ({ ...obj, [item]: index}), {});
         let finalUsersObj = updatedAddedUsersArr.reduce((obj, item, index) => {
             if (item !== null) {
-                return { ...obj, [item]: index };
+                return { ...obj, [String(item)]: index };
             }
             return obj;
         }, {});
@@ -123,7 +130,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
             const { result, error } = await addData('trips', uuid, tripData);
             
             // Add trip to users 
-            for (var user of updatedAddedUsersArr) {
+            for (var user of allEmails) {
                 if (!user) return 
                 const userDocRef = doc(db, 'users', user);
                 try {
