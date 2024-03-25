@@ -49,7 +49,8 @@ export const currencies = [
     'Equal',
     "For yourself",
     "For bestie",
-    "Bestie pays"
+    "Bestie pays",
+    "Bestie pays for you",
     // TODO: For future update on separate expense type
     // 'Unequal',
     // 'Percentage',
