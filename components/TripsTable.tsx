@@ -6,7 +6,8 @@ import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Accessibility } from 'lucide-react';
-import { Loader, DeleteTrip } from '@/components';
+import { Loader } from '@/components';
+import DeleteTrip from "../components/DeleteTrip";
 import getData from '@/lib/firebase/firestore/getData';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
