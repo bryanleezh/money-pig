@@ -6,8 +6,8 @@ import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Accessibility } from 'lucide-react';
-import { Loader } from '@/components';
-import DeleteTrip from "../components/DeleteTrip";
+import { Loader, DeleteTrips } from '@/components';
+// import DeleteTrip from "../components/DeleteTrip";
 import getData from '@/lib/firebase/firestore/getData';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
@@ -77,7 +77,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                                 </Link>
                             </div>
                             <div className='col-span-1 flex justify-center mt-8 grid-rows-3'>
-                                <DeleteTrip tripUUID={item.id} />
+                                <DeleteTrips tripUUID={item.id} />
                             </div>
                         </div>
                     ))}
