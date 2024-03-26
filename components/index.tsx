@@ -5,6 +5,7 @@ import {Signin} from './Signin';
 import {Signup} from './Signup';
 import TripsSection from './TripsSection';
 import AddTrip from './AddTrip';
+// import DeleteTrip from './DeleteTrip';
 import DeleteTrip from './DeleteTrip';
 import AlertDialogUI from './ui/alertDialogUI';
 import TripsTable from './TripsTable';
