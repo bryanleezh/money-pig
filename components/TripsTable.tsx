@@ -7,7 +7,6 @@ import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Accessibility } from 'lucide-react';
 import { Loader, DeleteTrips } from '@/components';
-// import DeleteTrip from "../components/DeleteTrip";
 import getData from '@/lib/firebase/firestore/getData';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
@@ -55,7 +54,6 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 ) : (
                 <>
                     {tripsData.map((item: Trip, index) => (
-                        // TODO: Add button for deletion of trip with lucide React
                         <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5'>
                             <div className='col-span-4'>
                                 <Link href={`/trips/${item.id}`} passHref>
