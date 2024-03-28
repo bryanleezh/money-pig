@@ -1,5 +1,4 @@
-// * Function that adds amount spent by person
-// ! Need to fix .com issue in firebase
+// * Function that adds amount spent by person to Trip document
 
 import { doc, getFirestore, updateDoc, increment } from "firebase/firestore";
 import firebase_app from "../firebase/config";
