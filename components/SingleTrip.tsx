@@ -47,7 +47,7 @@ React.useEffect(() => {
         :
         <div>
           <AddExpense tripUUID={tripUUID} tripData={tripData}/>
-          <ExpensesView tripUUID={tripUUID} />
+          <ExpensesView tripUUID={tripUUID} tripData={tripData} />
         </div>
       }
     </div>
