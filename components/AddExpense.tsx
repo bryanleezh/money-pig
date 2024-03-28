@@ -13,6 +13,7 @@ import addExpenseLog from '@/lib/expenses/addExpenseLog';
 import addExpense from '@/lib/expenses/addExpense';
 import addUserExpense from '@/lib/expenses/addUserExpense';
 import addUserExpensePaid from '@/lib/expenses/addUserExpensePaid';
+import addExpenseToUserDoc from '@/lib/expenses/addExpenseToUserDoc';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -20,8 +21,6 @@ function classNames(...classes: any) {
 
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
-    // console.log(tripUUID);
-    console.log(tripData);
     const { user } = useAuthContext();
     const userEmail = user?.email;
     const totalUsersCount: number = Object.keys(tripData?.users).length;
@@ -35,10 +34,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             }
         }
     }
-
-    // TODO: Initialise the other persons email if the trip has 2 users instead of just one, if there is only one person's email, just need to show the buttons without the tab
-
-    // TODO: Add logic for type of expense to add -> add tabs for different type of expense
 
     const db = getFirestore(firebase_app);
 
@@ -67,11 +62,14 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         console.log("submitting equal expense...");
         let splitAmount = amount/2;
         // TODO: Add expense to user document totalExpense
-        // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "equal");
         if (tripData && userEmail) {
+            // Add to User document
+            addExpenseToUserDoc(splitAmount, userEmail, selectedCurrency);
+            addExpenseToUserDoc(splitAmount, bestieEmail, selectedCurrency);
+            // Add to Trip document
             addUserExpense(splitAmount, userEmail, tripUUID, selectedCurrency);
             addUserExpense(splitAmount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
@@ -83,13 +81,17 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         setIsOpen(false);
         console.log("submitting indiv expense...");
         // TODO: Add expense to user document totalExpense
-        // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "indiv");
         if (tripData && userEmail) {
             // ! TODO: addExpense doesn't work for now
             // addExpense(tripData.users[userEmail], tripData.users[userEmail], amount, tripUUID, selectedCurrency);
+
+            // Add to User document
+            addExpenseToUserDoc(amount, userEmail, selectedCurrency);
+
+            // Add to Trip document
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
         }
@@ -99,11 +101,14 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         setIsOpen(false);
         console.log("submitting bestie expense...");
         // TODO: Add expense to user document totalExpense
-        // TODO: Add expense to trip document -> totalExpense, usersExpense, expenses, expensesLog
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
+            // Add to User document
+            addExpenseToUserDoc(amount, bestieEmail, selectedCurrency);
+
+            // Add to Trip document
             addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
         }
@@ -112,11 +117,15 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitForBestieExpense = () => {
         setIsOpen(false);
         console.log("submitting for bestie...");
-        // TODO: Add expense for bestie, which logs for the bestie
+        // TODO: Add expense to user document totalExpense
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
+            // Add to User document
+            addExpenseToUserDoc(amount, bestieEmail, selectedCurrency);
+
+            // Add to Trip document
             addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
         }
@@ -125,11 +134,15 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitBestieExpenseForYou = () => {
         setIsOpen(false);
         console.log("submitting for bestie...");
-        // TODO: Add expense for bestie, which logs for the bestie
+        // TODO: Add expense to user document totalExpense
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
         addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
+            // Add to User document
+            addExpenseToUserDoc(amount, userEmail, selectedCurrency);
+
+            // Add to Trip document
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
         }
@@ -142,12 +155,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitPercentageExpense = () => {
         setIsOpen(false);
     }
-
-    // TODO: Submit form to add data
-    const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log("submit form");
-    };
     
     return (
         <div>
@@ -195,8 +202,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                         </Dialog.Title>
                         <form className="mt-2">
                             <p className="text-sm text-gray-500">
-                            Your payment has been successfully submitted. We’ve sent
-                            you an email with all of the details of your order.
+                            Add a new expense to your trip, log what expense it is & choose the amount with the currency!
                             </p>
                             {/*  Description */}
                             <div>
