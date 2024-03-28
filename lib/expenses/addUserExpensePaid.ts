@@ -1,5 +1,4 @@
 // * Function that adds amount spent by the person logging it
-// ! Need to fix .com issue in firebase
 
 import { doc, getFirestore, updateDoc, increment } from "firebase/firestore";
 import firebase_app from "../firebase/config";
