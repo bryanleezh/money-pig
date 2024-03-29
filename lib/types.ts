@@ -10,7 +10,7 @@ interface AccountCardProps {
     email: string | null;
     username: string | null;
     tripCount: number | null;
-    totalExpense: number | null;
+    totalExpense: Record<string, number> | null;
 }
 
 interface Trip {
