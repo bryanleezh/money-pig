@@ -13,7 +13,6 @@ export default function SingleTrip ( { tripUUID } : TripUuid ) {
 
   const retrieveData = async () => {
     try{
-        // can refactor to separate function for getting collection ids?
         const tripData: DocumentData[] = [];
         const tripRef = doc(db, 'trips', tripUUID);
         const tripSnapshot = await getDoc(tripRef);
