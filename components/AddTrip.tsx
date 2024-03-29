@@ -181,7 +181,7 @@ export default function AddTrip ( { email } : AccountInfoProps ) {
                     type="button"
                     onClick={handleOpenModal}
                     // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
-                    className="inline-flex w-50 justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto"
+                    className="inline-flex w-50 justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:w-auto"
                 >
                     Create New Trip
                 </button>
