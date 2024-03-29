@@ -2,7 +2,7 @@
 
 import React from "react";
 import firebase_app from "@/lib/firebase/config";
-import { DocumentData, QuerySnapshot, collection, doc, getDoc, getDocs, getFirestore, query } from "firebase/firestore";
+import { DocumentData, collection, doc, getDoc, getFirestore } from "firebase/firestore";
 import AccountCard from '@/components/AccountCard';
 import profilepic from '@/lib/images/profile-photo.jpg';
 import { AccountInfoProps } from "@/lib/types";
@@ -14,17 +14,17 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
 
     const [account, setAccount] = React.useState<DocumentData[]>([]);
     const [loading, setLoading] = React.useState<boolean>(true);
-    // console.log("Email: ", email);
-    // console.log("collection: ", userCollection);
+    
+    const username: string = account.length > 0 ? account[0].username : '';
+    const tripCount: number = account.length > 0 ? account[0].trips.length : 0;
+    const totalExpenditure: Record<string, number> = account.length > 0 ?
+        account[0].totalExpense :
+    {};
+
     const fetchAccData = async() => {
         try {
             const userData: DocumentData[] = [];
-            // const q = query(userCollection);
-            // const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(q);
-            // querySnapshot.forEach((doc) => {
-            //     userData.push(doc.data());
-            // });
-            
+    
             if (email !== null) {
                 const docRef = doc(db, "users", email);
                 const docSnap = await getDoc(docRef);
@@ -50,9 +50,6 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
         fetchAccData();
     }, []);
 
-    const username: string = account.length > 0 ? account[0].username : '';
-    const tripCount: number = account.length > 0 ? account[0].trips.length : 0;
-    const totalExpenditure: number = account.length > 0 ? account[0].totalExpense : 0;
 
     return (
         <div className="mt-15">
