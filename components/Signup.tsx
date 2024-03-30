@@ -50,7 +50,7 @@ export const Signup = () => {
     const userData = {
       username: username,
       trips: {},
-      totalExpense: 0,
+      totalExpense: {},
       activity: []
     };
     
