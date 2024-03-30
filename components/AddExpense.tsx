@@ -27,7 +27,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     var bestieEmail = "";
     if (!isSingleUser) {
         for (let i = 0; i < tripData!.users.length; i++) {
-            console.log(tripData!.users[i]);
             if (tripData!.users[i] !== userEmail) {
                 bestieEmail = tripData!.users[i];
             }
@@ -60,15 +59,15 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
         setIsOpen(false);
         console.log("submitting equal expense...");
         let splitAmount = amount/2;
-        // TODO: Add expense to user document totalExpense
+
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
-        addExpenseLog(amount, description, tripUUID, selectedCurrency, "equal");
         if (tripData && userEmail) {
             // Add to User document
             addExpenseToUserDoc(splitAmount, userEmail, selectedCurrency);
             addExpenseToUserDoc(splitAmount, bestieEmail, selectedCurrency);
             // Add to Trip document
+            addExpenseLog(amount, description, tripUUID, selectedCurrency, "equal", userEmail, bestieEmail);
             addUserExpense(splitAmount, userEmail, tripUUID, selectedCurrency);
             addUserExpense(splitAmount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
@@ -79,18 +78,18 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitIndivExpense = () => {
         setIsOpen(false);
         console.log("submitting indiv expense...");
-        // TODO: Add expense to user document totalExpense
+
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
-        addExpenseLog(amount, description, tripUUID, selectedCurrency, "indiv");
         if (tripData && userEmail) {
             // ! TODO: addExpense doesn't work for now
             // addExpense(tripData.users[userEmail], tripData.users[userEmail], amount, tripUUID, selectedCurrency);
-
+            
             // Add to User document
             addExpenseToUserDoc(amount, userEmail, selectedCurrency);
-
+            
             // Add to Trip document
+            addExpenseLog(amount, description, tripUUID, selectedCurrency, "indiv", userEmail, bestieEmail);
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
         }
@@ -99,15 +98,15 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitBestieExpense = () => {
         setIsOpen(false);
         console.log("submitting bestie expense...");
-        // TODO: Add expense to user document totalExpense
+
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
-        addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
             // Add to User document
             addExpenseToUserDoc(amount, bestieEmail, selectedCurrency);
-
+            
             // Add to Trip document
+            addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie", userEmail, bestieEmail);
             addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
         }
@@ -115,16 +114,16 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
 
     const submitForBestieExpense = () => {
         setIsOpen(false);
-        console.log("submitting for bestie...");
-        // TODO: Add expense to user document totalExpense
+        console.log("submitting expense for bestie...");
+
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
-        addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
             // Add to User document
             addExpenseToUserDoc(amount, bestieEmail, selectedCurrency);
-
+            
             // Add to Trip document
+            addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestiepay", userEmail, bestieEmail);
             addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
         }
@@ -133,15 +132,15 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const submitBestieExpenseForYou = () => {
         setIsOpen(false);
         console.log("submitting for bestie...");
-        // TODO: Add expense to user document totalExpense
+
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
         addTotalTripExpense(amount, tripUUID, selectedCurrency);
-        addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie");
         if (tripData && userEmail) {
             // Add to User document
             addExpenseToUserDoc(amount, userEmail, selectedCurrency);
-
+            
             // Add to Trip document
+            addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestiepayforyou", userEmail, bestieEmail);
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
         }
