@@ -17,10 +17,13 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     // TODO: Add delete button for each expense (similar to deleteTrip component)
     return (
         <div className='container mx-auto max-w-3xl p-8 grow'>
+            <p className="text-base text-primary leading-relaxed text-body-color dark:text-cyan-200">
+                {tripName}
+            </p>
             {/* Total Users Expense */}
     
             {/* Users Expense Paid */}
-            
+
             {/* All Expenses */}
         </div>
     )
