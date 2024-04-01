@@ -57,7 +57,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                         <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5'>
                             <div className='col-span-4'>
                                 <Link href={`/trips/${item.id}`} passHref>
-                                    <div className='mb-5 border-dotted  border-gray-300 grid grid-cols-5 grid-rows-3'>                                
+                                    <div className='border-dotted  border-gray-300 grid grid-cols-5 grid-rows-2'>                                
                                         <div className='row-span-2 flex flex-col items-center pt-2'>
                                             <Accessibility size={48} color='lightblue' />
                                         </div>
@@ -74,7 +74,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                                     </div>
                                 </Link>
                             </div>
-                            <div className='col-span-1 flex justify-center mt-8 grid-rows-3'>
+                            <div className='col-span-1 flex justify-center mt-4 grid-rows-3'>
                                 <DeleteTrips tripUUID={item.id} />
                             </div>
                         </div>
