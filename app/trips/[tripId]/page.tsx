@@ -23,9 +23,6 @@ const tripDetails = ({
     return (
         <div>
             <Nav />
-            Authorised
-            {/* <h1>Trip Details</h1>
-            <h2>{params.tripId}</h2> */}
             <SingleTrip tripUUID={params.tripId}/>
         </div>
     )
