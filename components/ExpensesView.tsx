@@ -60,26 +60,31 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                                 <h3 className="font-medium">Accommodation</h3>
                                 <span>$1200.00</span>
                             </div>
-                        <div className="flex items-center justify-between p-4">
-                            <h3 className="font-medium">Flights</h3>
-                            <span>$800.00</span>
+                            <div className="flex items-center justify-between p-4">
+                                <h3 className="font-medium">Flights</h3>
+                                <span>$800.00</span>
+                            </div>
+                            <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
+                                <h3 className="font-medium">Dining</h3>
+                                <span>$300.00</span>
+                            </div>
+                            <div className="flex items-center justify-between p-4">
+                                <h3 className="font-medium">Spa</h3>
+                                <span>$200.00</span>
+                            </div>
                         </div>
                         <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
-                            <h3 className="font-medium">Dining</h3>
-                            <span>$300.00</span>
-                        </div>
-                        <div className="flex items-center justify-between p-4">
-                            <h3 className="font-medium">Spa</h3>
-                            <span>$200.00</span>
+                            <h3 className="font-medium">Total</h3>
+                            <span>$2500.00</span>
                         </div>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
-                        <h3 className="font-medium">Total</h3>
-                        <span>$2500.00</span>
-                    </div>
-                    </div>
+                    {/* Total Users Expense */}
+
+                    {/* Users Expense Paid */}
+
+                    {/* All Expenses */}
                 </div>
-                </section>
+            </section>
         </>
     )
 }
