@@ -12,12 +12,10 @@ export default function Nav() {
         if ( error ) {
           return console.log(error);
         }
-        // console.log(result);
         return;
       }
       
     return (
-        <nav className='ml-0 fixed z-10'>
             <ul className='flex flex-row gap-5 fixed left-8 right-8 justify-around *:sm:m-10 m-3 '>
                 {navbarLinks.map((item, index) => (
                     <li key={index} className="mr-4">
@@ -32,6 +30,5 @@ export default function Nav() {
                     </Link>
                 </li>
             </ul>
-        </nav>
     )
 }
