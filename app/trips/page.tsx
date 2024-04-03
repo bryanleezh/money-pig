@@ -19,7 +19,6 @@ const Trips = () => {
   return (
     <div>
         <Nav />
-        Authorised
         <TripsSection email={user?.email || null}/>
     </div>
   )
