@@ -44,7 +44,7 @@ React.useEffect(() => {
           <Loader />
         </div>
         :
-        <div>
+        <div className='w-full'>
           <AddExpense tripUUID={tripUUID} tripData={tripData}/>
           <ExpensesView tripUUID={tripUUID} tripData={tripData} />
         </div>
