@@ -14,6 +14,8 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     const usersExpense = tripData?.usersExpense;
     const usersExpensePaid = tripData?.usersExpensePaid;
 
+
+    // TODO: Can refactor these elements into 1 component since it is a table
     const totalExpenseElements = totalExpense ? Object.entries(totalExpense).map(([currency, expense], index) => {
         if (index % 2 == 0) {
             return (
