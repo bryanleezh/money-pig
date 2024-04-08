@@ -3,6 +3,10 @@
 import React from 'react';
 import { TripInfo } from '@/lib/types';
 
+interface ExpenseObj {
+  [currency: string]: number;
+}
+
 export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     console.log(tripUUID);
     console.log(tripData);
@@ -34,19 +38,34 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
         }
     }) : null;
 
+    const currencyElements = (elements: ExpenseObj | null) => {
+        return elements ? Object.entries(elements).map(([currency, expense]) => {
+            return (
+                <div key={currency} className="flex items-center justify-between p-4">
+                    <h3 className="font-medium">{currency}</h3>
+                    <span>{String(expense)}</span>
+                </div>
+            )
+        }) : null;
+    }
+
     const usersExpenseElements = usersExpense ? Object.entries(usersExpense).map(([user, expenseObj], index) => {
         if (index % 2 == 0) {
             return (
                 <div key={user} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
                     <h3 className="font-medium">{user}</h3>
-                    {/* <span>{String(expense)}</span> */}
+                    <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                        {currencyElements(expenseObj as ExpenseObj)}
+                    </div>
                 </div>
             )
         } else {
             return (
                 <div key={user} className="flex items-center justify-between p-4">
                     <h3 className="font-medium">{user}</h3>
-                    {/* <span>{String(expense)}</span> */}
+                    <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                        {currencyElements(expenseObj as ExpenseObj)}
+                    </div>
                 </div>
             )
         }
@@ -58,13 +77,18 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                 <div key={user} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
                     <h3 className="font-medium">{user}</h3>
                     {/* <span>{String(expense)}</span> */}
+                     <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                        {currencyElements(expenseObj as ExpenseObj)}
+                    </div>
                 </div>
             )
         } else {
             return (
                 <div key={user} className="flex items-center justify-between p-4">
                     <h3 className="font-medium">{user}</h3>
-                    {/* <span>{String(expense)}</span> */}
+                    <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                        {currencyElements(expenseObj as ExpenseObj)}
+                    </div>
                 </div>
             )
         }
