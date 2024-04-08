@@ -107,18 +107,27 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                             {description}
                         </p>
                     </div>
+                    <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                        Total Expense
+                    </p>
                     <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                         <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
                             {totalExpenseElements}
                         </div>
                     </div>
                     {/* Total Users Expense */}
+                    <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                        Users Expenses
+                    </p>
                     <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                         <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
                             {usersExpenseElements}
                         </div>
                     </div>
                     {/* Users Expense Paid */}
+                    <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                        Total Expense Paid By Each User
+                    </p>
                     <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                         <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
                             {usersExpensePaidElements}
