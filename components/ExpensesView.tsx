@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { TripInfo } from '@/lib/types';
-
-interface ExpenseObj {
-  [currency: string]: number;
-}
+import { ExpenseObj } from "@/lib/types";
+import ExpensesViewElements from './ExpensesViewElements';
 
 export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     console.log(tripUUID);
@@ -20,23 +18,6 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
 
 
     // TODO: Can refactor these elements into 1 component since it is a table
-    const totalExpenseElements = totalExpense ? Object.entries(totalExpense).map(([currency, expense], index) => {
-        if (index % 2 == 0) {
-            return (
-                <div key={currency} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
-                    <h3 className="font-medium">{currency}</h3>
-                    <span>{String(expense)}</span>
-                </div>
-            )
-        } else {
-            return (
-                <div key={currency} className="flex items-center justify-between p-4">
-                    <h3 className="font-medium">{currency}</h3>
-                    <span>{String(expense)}</span>
-                </div>
-            )
-        }
-    }) : null;
 
     const currencyElements = (elements: ExpenseObj | null) => {
         return elements ? Object.entries(elements).map(([currency, expense]) => {
@@ -99,12 +80,12 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     // TODO: Add delete button for each expense (similar to deleteTrip component)
     return (
         <>
-            <section className="w-full py-6 flex justify-center">
+            <section className="py-6 flex justify-center">
                 <div className="container grid max-w-3xl px-4 gap-6 md:gap-8 sm:grid-cols-1 sm:px-6">
                     <div className="space-y-2">
                         <h1 className="text-3xl font-bold">{tripName}</h1>
                         <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
-                            {description}
+                            Description : {description}
                         </p>
                     </div>
                     <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
@@ -112,7 +93,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </p>
                     <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                         <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                            {totalExpenseElements}
+                            <ExpensesViewElements data={totalExpense} type="total"/>
                         </div>
                     </div>
                     {/* Total Users Expense */}
@@ -122,6 +103,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                         <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
                             {usersExpenseElements}
+                            {/* <ExpensesViewElements data={totalExpense} type="usersExpense"/> */}
                         </div>
                     </div>
                     {/* Users Expense Paid */}
@@ -130,7 +112,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </p>
                     <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                         <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                            {usersExpensePaidElements}
+                            {/* {usersExpensePaidElements} */}
                         </div>
                     </div>
                     {/* All Expenses */}
