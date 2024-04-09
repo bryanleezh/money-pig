@@ -44,6 +44,15 @@ interface ExpenseTabProps {
     closeModal: () => void;
 }
 
+interface ExpenseObj {
+    [currency: string]: number;
+}
+
+interface ElementsObj {
+    type: "total" | "usersExpense" | "usersExpensePaid";
+    data: ExpenseObj;
+}
+
 export type {
     AccountInfoProps,
     AccountCardProps,
@@ -53,4 +62,6 @@ export type {
     AddDataResult,
     DeleteResult,
     ExpenseTabProps,
+    ExpenseObj,
+    ElementsObj,
 }
