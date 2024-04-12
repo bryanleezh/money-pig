@@ -16,66 +16,6 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     const usersExpense = tripData?.usersExpense;
     const usersExpensePaid = tripData?.usersExpensePaid;
 
-
-    // TODO: Can refactor these elements into 1 component since it is a table
-
-    const currencyElements = (elements: ExpenseObj | null) => {
-        return elements ? Object.entries(elements).map(([currency, expense]) => {
-            return (
-                <div key={currency} className="flex items-center justify-between p-4">
-                    <h3 className="font-medium">{currency}</h3>
-                    <span>{String(expense)}</span>
-                </div>
-            )
-        }) : null;
-    }
-
-    const usersExpenseElements = usersExpense ? Object.entries(usersExpense).map(([user, expenseObj], index) => {
-        if (index % 2 == 0) {
-            return (
-                <div key={user} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
-                    <h3 className="font-medium">{user}</h3>
-                    <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                        {currencyElements(expenseObj as ExpenseObj)}
-                    </div>
-                </div>
-            )
-        } else {
-            return (
-                <div key={user} className="flex items-center justify-between p-4">
-                    <h3 className="font-medium">{user}</h3>
-                    <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                        {currencyElements(expenseObj as ExpenseObj)}
-                    </div>
-                </div>
-            )
-        }
-    }) : null;
-
-    const usersExpensePaidElements = usersExpensePaid ? Object.entries(usersExpensePaid).map(([user, expenseObj], index) => {
-        if (index % 2 == 0) {
-            return (
-                <div key={user} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-950">
-                    <h3 className="font-medium">{user}</h3>
-                    {/* <span>{String(expense)}</span> */}
-                     <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                        {currencyElements(expenseObj as ExpenseObj)}
-                    </div>
-                </div>
-            )
-        } else {
-            return (
-                <div key={user} className="flex items-center justify-between p-4">
-                    <h3 className="font-medium">{user}</h3>
-                    <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                        {currencyElements(expenseObj as ExpenseObj)}
-                    </div>
-                </div>
-            )
-        }
-    }) : null;
-
-
     // TODO: Populate with all expenses + total of each currency spent in each trip
     // TODO: Add delete button for each expense (similar to deleteTrip component)
     return (
@@ -88,34 +28,41 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                             Description : {description}
                         </p>
                     </div>
-                    <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
-                        Total Expense
-                    </p>
-                    <div className="rounded-lg border border-gray-200 dark:border-gray-800">
-                        <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                            <ExpensesViewElements data={totalExpense} type="total"/>
+                    <div className='container grid max-w-3xl sm:grid-cols-1 md:grid-cols-3 sm:px-6'>
+                        <div>
+                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                                Total Expense
+                            </p>
+                            <div className="rounded-lg border border-gray-200 dark:border-gray-800">
+                                <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                                    <ExpensesViewElements data={totalExpense} type="total"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    {/* Total Users Expense */}
-                    <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
-                        Users Expenses
-                    </p>
-                    <div className="rounded-lg border border-gray-200 dark:border-gray-800">
-                        <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                            {usersExpenseElements}
-                            {/* <ExpensesViewElements data={totalExpense} type="usersExpense"/> */}
+                        <div>
+                            {/* Total Users Expense */}
+                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                                Users Expenses
+                            </p>
+                            <div className="rounded-lg border border-gray-200 dark:border-gray-800">
+                                <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                                    <ExpensesViewElements data={usersExpense} type="usersExpense"/>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    {/* Users Expense Paid */}
-                    <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
-                        Total Expense Paid By Each User
-                    </p>
-                    <div className="rounded-lg border border-gray-200 dark:border-gray-800">
-                        <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
-                            {/* {usersExpensePaidElements} */}
+                        <div>
+                            {/* Users Expense Paid */}
+                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                                Total Expense Paid By Each User
+                            </p>
+                            <div className="rounded-lg border border-gray-200 dark:border-gray-800">
+                                <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
+                                    <ExpensesViewElements data={usersExpensePaid} type="usersExpense"/>
+                                </div>
+                            </div>
                         </div>
+                        {/* All Expenses */}
                     </div>
-                    {/* All Expenses */}
                 </div>
             </section>
         </>
