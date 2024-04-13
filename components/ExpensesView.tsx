@@ -16,7 +16,6 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     const usersExpense = tripData?.usersExpense;
     const usersExpensePaid = tripData?.usersExpensePaid;
 
-    // TODO: Populate with all expenses + total of each currency spent in each trip
     // TODO: Add delete button for each expense (similar to deleteTrip component)
     return (
         <>
@@ -28,8 +27,8 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                             Description : {description}
                         </p>
                     </div>
-                    <div className='container grid max-w-3xl sm:grid-cols-1 md:grid-cols-3 sm:px-6'>
-                        <div>
+                    <div className='container grid max-w-3xl sm:grid-cols-1 md:grid-cols-3'>
+                        <div className='md:px-1'>
                             <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
                                 Total Expense
                             </p>
@@ -39,7 +38,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className='md:px-1'>
                             {/* Total Users Expense */}
                             <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
                                 Users Expenses
@@ -50,7 +49,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className='md:px-1'>
                             {/* Users Expense Paid */}
                             <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
                                 Total Expense Paid By Each User
