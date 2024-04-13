@@ -53,6 +53,21 @@ interface ElementsObj {
     data: ExpenseObj;
 }
 
+interface LogObj {
+  desc: string;
+  log: {
+    amount: number;
+    currency: string;
+    paidBy: string;
+    paidFor: string[];
+    timeStamp: {
+      nanoseconds: number;
+      seconds: number;
+    };
+    transactionType: string;
+  };
+};
+
 export type {
     AccountInfoProps,
     AccountCardProps,
@@ -64,4 +79,5 @@ export type {
     ExpenseTabProps,
     ExpenseObj,
     ElementsObj,
+    LogObj,
 }
