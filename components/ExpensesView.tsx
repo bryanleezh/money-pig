@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { TripInfo } from '@/lib/types';
-import { ExpenseObj } from "@/lib/types";
 import ExpensesViewElements from './ExpensesViewElements';
 
 export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
@@ -60,7 +59,10 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                                 </div>
                             </div>
                         </div>
-                        {/* All Expenses */}
+                    </div>
+                    {/* All Expenses */}
+                    <div className='container grid max-w-3xl sm:grid-cols-1'>
+
                     </div>
                 </div>
             </section>
