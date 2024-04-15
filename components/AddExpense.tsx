@@ -19,6 +19,7 @@ function classNames(...classes: any) {
 }
 
 export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
+    // TODO: Add refresh to tripdata or refresh the page
 
     const { user } = useAuthContext();
     const userEmail = user?.email;
@@ -160,7 +161,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                 <button
                     type="button"
                     onClick={openModal}
-                    // className="rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
                     className="inline-flex w-50 justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:w-auto"
                 >
                     Add Expense
