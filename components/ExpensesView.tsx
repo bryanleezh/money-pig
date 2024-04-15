@@ -3,6 +3,7 @@
 import React from 'react';
 import { ExpenseObj, LogObj, TripInfo } from '@/lib/types';
 import ExpensesViewElements from './ExpensesViewElements';
+import ExpensesLogTable from './ExpensesLogTable';
 
 export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
     console.log(tripUUID);
@@ -84,11 +85,12 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </div>
                     {/* All Expenses */}
                     <div className='container grid max-w-3xl sm:grid-cols-1'>
-                        {expensesLog.map((singleExpense: LogObj, index) => (
+                        {/* {expensesLog.map((singleExpense: LogObj, index) => (
                             <>
-                                
+
                             </>
-                        ))}
+                        ))} */}
+                        <ExpensesLogTable />
                     </div>
                 </div>
             </section>
