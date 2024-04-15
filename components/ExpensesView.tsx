@@ -84,7 +84,11 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </div>
                     {/* All Expenses */}
                     <div className='container grid max-w-3xl sm:grid-cols-1'>
-                        {}
+                        {expensesLog.map((singleExpense: LogObj, index) => (
+                            <>
+                                
+                            </>
+                        ))}
                     </div>
                 </div>
             </section>
