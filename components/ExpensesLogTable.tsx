@@ -1,6 +1,6 @@
 "use client";
 
-import { ExpensesLogTableProps } from '@/lib/types';
+import { ExpensesLogTableProps, LogObj } from '@/lib/types';
 import {Table} from '@radix-ui/themes';
 
 export default function ExpensesLogTable( {data} : ExpensesLogTableProps) {
@@ -22,6 +22,9 @@ export default function ExpensesLogTable( {data} : ExpensesLogTableProps) {
                 </Table.Header>
 
                 <Table.Body>
+                    {data.map((logObj: LogObj, index) => (
+                        <div key={index}>{logObj.desc}</div>
+                    ))}
                     <Table.Row>
                         <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
                         <Table.Cell>danilo@example.com</Table.Cell>
