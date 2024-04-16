@@ -23,27 +23,20 @@ export default function ExpensesLogTable( {data} : ExpensesLogTableProps) {
 
                 <Table.Body>
                     {data.map((logObj: LogObj, index) => (
-                        <div key={index}>{logObj.desc}</div>
+                        <Table.Row key={index}>
+                            <Table.RowHeaderCell>{index + 1}</Table.RowHeaderCell>
+                            <Table.Cell>{logObj.desc}</Table.Cell>
+                            <Table.Cell>{logObj.log.amount}</Table.Cell>
+                            <Table.Cell>{logObj.log.currency}</Table.Cell>
+                            <Table.Cell>{logObj.log.paidBy}</Table.Cell>
+                            <Table.Cell>{logObj.log.paidFor}</Table.Cell>
+                            <Table.Cell>{logObj.log.transactionType}</Table.Cell>
+                            {/* TODO: Add timeStamp from calculation of nanoseconds and seconds */}
+                            {/* <Table.Cell>{logObj.log.timeStamp}</Table.Cell> */}
+                        </Table.Row>
                     ))}
-                    <Table.Row>
-                        <Table.RowHeaderCell>Danilo Sousa</Table.RowHeaderCell>
-                        <Table.Cell>danilo@example.com</Table.Cell>
-                        <Table.Cell>Developer</Table.Cell>
-                    </Table.Row>
-
-                    <Table.Row>
-                    <Table.RowHeaderCell>Zahra Ambessa</Table.RowHeaderCell>
-                    <Table.Cell>zahra@example.com</Table.Cell>
-                    <Table.Cell>Admin</Table.Cell>
-                    </Table.Row>
-
-                    <Table.Row>
-                    <Table.RowHeaderCell>Jasper Eriksson</Table.RowHeaderCell>
-                    <Table.Cell>jasper@example.com</Table.Cell>
-                    <Table.Cell>Developer</Table.Cell>
-                    </Table.Row>
                 </Table.Body>
-                </Table.Root>
+            </Table.Root>
         </>
     )
 }
