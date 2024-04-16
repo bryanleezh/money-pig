@@ -6,8 +6,8 @@ import ExpensesViewElements from './ExpensesViewElements';
 import ExpensesLogTable from './ExpensesLogTable';
 
 export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
-    console.log(tripUUID);
-    console.log(tripData);
+    // console.log(tripUUID);
+    // console.log(tripData);
 
     const tripName: string = tripData?.name;
     const description: string = tripData?.description;
@@ -90,7 +90,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
 
                             </>
                         ))} */}
-                        <ExpensesLogTable />
+                        <ExpensesLogTable data={expensesLog} />
                     </div>
                 </div>
             </section>
