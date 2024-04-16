@@ -1,8 +1,10 @@
 "use client";
 
+import { ExpensesLogTableProps } from '@/lib/types';
 import {Table} from '@radix-ui/themes';
 
-export default function ExpensesLogTable() {
+export default function ExpensesLogTable( {data} : ExpensesLogTableProps) {
+    console.log(data);
     return (
         <>
             <Table.Root variant='surface'>
