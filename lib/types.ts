@@ -68,6 +68,10 @@ interface LogObj {
   };
 };
 
+interface ExpensesLogTableProps {
+    data: LogObj[];
+}
+
 export type {
     AccountInfoProps,
     AccountCardProps,
@@ -80,4 +84,5 @@ export type {
     ExpenseObj,
     ElementsObj,
     LogObj,
+    ExpensesLogTableProps,
 }
