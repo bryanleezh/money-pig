@@ -1,5 +1,5 @@
 import Nav from './Nav';
-import Loader from './Loader';
+import Loader from './loader/Loader';
 import AccountInfo from './AccountInfo';
 import {Signin} from './Signin';
 import {Signup} from './Signup';
