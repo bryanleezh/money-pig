@@ -6,7 +6,7 @@ import { DocumentData, collection, doc, getDoc, getFirestore } from "firebase/fi
 import AccountCard from '@/components/AccountCard';
 import profilepic from '@/lib/images/profile-photo.jpg';
 import { AccountInfoProps } from "@/lib/types";
-import Loader from "./Loader";
+import Loader from "./loader/Loader";
 
 export default function AccountInfo( { email }: AccountInfoProps ) {
     const db = getFirestore(firebase_app);
