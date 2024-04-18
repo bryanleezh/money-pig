@@ -54,18 +54,18 @@ interface ElementsObj {
 }
 
 interface LogObj {
-  desc: string;
-  log: {
+    desc: string;
+    log: {
     amount: number;
     currency: string;
     paidBy: string;
     paidFor: string[];
+    };
     timeStamp: {
-      nanoseconds: number;
-      seconds: number;
+        nanoseconds: number;
+        seconds: number;
     };
     transactionType: string;
-  };
 };
 
 interface ExpensesLogTableProps {
