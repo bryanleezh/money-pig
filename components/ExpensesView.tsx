@@ -51,7 +51,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </div>
                     <div className='container grid max-w-3xl sm:grid-cols-1 md:grid-cols-3'>
                         <div className='md:px-1'>
-                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                            <p className="total-expense text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
                                 Total Expense
                             </p>
                             <div className="rounded-lg border border-gray-200 dark:border-gray-800">
@@ -62,7 +62,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                         </div>
                         <div className='md:px-1'>
                             {/* Total Users Expense */}
-                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                            <p className="user-expenses text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
                                 Users Expenses
                             </p>
                             <div className="rounded-lg border border-gray-200 dark:border-gray-800">
@@ -85,11 +85,6 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </div>
                     {/* All Expenses */}
                     <div className='container grid max-w-3xl sm:grid-cols-1'>
-                        {/* {expensesLog.map((singleExpense: LogObj, index) => (
-                            <>
-
-                            </>
-                        ))} */}
                         <ExpensesLogTable data={expensesLog} />
                     </div>
                 </div>
