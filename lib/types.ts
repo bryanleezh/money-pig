@@ -79,6 +79,12 @@ interface DeleteExpenseProps {
     index: number;
 }
 
+interface Activity {
+    activityType: string;
+    desc: string;
+    timestamp: number;
+    
+}
 export type {
     AccountInfoProps,
     AccountCardProps,
@@ -93,4 +99,5 @@ export type {
     LogObj,
     ExpensesLogTableProps,
     DeleteExpenseProps,
+    Activity,
 }
