@@ -7,6 +7,7 @@ import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import deleteData from '@/lib/firebase/firestore/deleteData';
 import deleteTripFromUser from '@/lib/firebase/firestore/deleteTripFromUser';
 import { useAuthContext } from '@/app/context/AuthContext';
+import addActivity from '@/lib/expenses/addActivity';
 
 
 export default function DeleteTrips( { tripUUID } : TripUuid )  {
@@ -23,6 +24,7 @@ export default function DeleteTrips( { tripUUID } : TripUuid )  {
         await deleteData('trips', tripUUID);
         // deletes trip from own user's trip
         await deleteTripFromUser( user?.email ?? '',tripUUID);
+        await addActivity(user?.email ?? '', "delete_trip", tripUUID);
         setTimeout(() => {
             location.reload();
         },2000);
@@ -32,6 +34,7 @@ export default function DeleteTrips( { tripUUID } : TripUuid )  {
     const deleteTripForUser = async() => {
         setDeleteSuccess(true);
         await deleteTripFromUser( user?.email ?? '',tripUUID);
+        await addActivity(user?.email ?? '', "delete_trip", tripUUID);
         setTimeout(() => {
             location.reload();
         },2000);

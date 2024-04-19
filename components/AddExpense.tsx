@@ -3,9 +3,7 @@
 import React, { Fragment } from 'react';
 import { TripInfo } from '@/lib/types';
 import { currencies, tabs } from '@/lib/data';
-import firebase_app from '@/lib/firebase/config';
 import { Transition, Dialog, Tab } from '@headlessui/react';
-import { getFirestore } from 'firebase/firestore';
 import { useAuthContext } from '@/app/context/AuthContext';
 import ExpenseTab from './ExpenseTab';
 import addTotalTripExpense from '@/lib/expenses/addTotalTripExpense';
@@ -13,6 +11,7 @@ import addExpenseLog from '@/lib/expenses/addExpenseLog';
 import addUserExpense from '@/lib/expenses/addUserExpense';
 import addUserExpensePaid from '@/lib/expenses/addUserExpensePaid';
 import addExpenseToUserDoc from '@/lib/expenses/addExpenseToUserDoc';
+import addActivity from '@/lib/expenses/addActivity';
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
@@ -33,8 +32,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             }
         }
     }
-
-    const db = getFirestore(firebase_app);
 
     // Modal state
     const [ isOpen, setIsOpen ] = React.useState<boolean>(false);
@@ -72,8 +69,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             addUserExpense(splitAmount, userEmail, tripUUID, selectedCurrency);
             addUserExpense(splitAmount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
+            
+            // Add activity to user document
+            addActivity(userEmail, "created_a_new_expense", description);
         }
-
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
     }
 
     const submitIndivExpense = () => {
@@ -93,7 +95,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             addExpenseLog(amount, description, tripUUID, selectedCurrency, "indiv", userEmail, bestieEmail);
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
+            
+            // Add activity to user document
+            addActivity(userEmail, "created_a_new_expense", description);
         }
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
     }
 
     const submitBestieExpense = () => {
@@ -110,7 +118,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestie", userEmail, bestieEmail);
             addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, userEmail, tripUUID, selectedCurrency);
+            
+            // Add activity to user document
+            addActivity(userEmail, "created_a_new_expense", description);
         }
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
     }
 
     const submitForBestieExpense = () => {
@@ -127,7 +141,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestiepay", userEmail, bestieEmail);
             addUserExpense(amount, bestieEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
+            
+            // Add activity to user document
+            addActivity(userEmail, "created_a_new_expense", description);
         }
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
     }
 
     const submitBestieExpenseForYou = () => {
@@ -144,9 +164,16 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             addExpenseLog(amount, description, tripUUID, selectedCurrency, "bestiepayforyou", userEmail, bestieEmail);
             addUserExpense(amount, userEmail, tripUUID, selectedCurrency);
             addUserExpensePaid(amount, bestieEmail, tripUUID, selectedCurrency);
+            
+            // Add activity to user document
+            addActivity(userEmail, "created_a_new_expense", description);
         }
+        setTimeout(() => {
+            location.reload();
+        }, 1000);
     }
 
+    // TODO: 
     const submitExactExpense = () => {
         setIsOpen(false);
     }
