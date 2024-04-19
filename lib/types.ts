@@ -70,6 +70,13 @@ interface LogObj {
 
 interface ExpensesLogTableProps {
     data: LogObj[];
+    tripUUID: string;
+}
+
+interface DeleteExpenseProps {
+    tripUUID: string;
+    data: LogObj;
+    index: number;
 }
 
 export type {
@@ -85,4 +92,5 @@ export type {
     ElementsObj,
     LogObj,
     ExpensesLogTableProps,
+    DeleteExpenseProps,
 }
