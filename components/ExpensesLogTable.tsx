@@ -1,10 +1,9 @@
 "use client";
 
 import { ExpensesLogTableProps, LogObj } from '@/lib/types';
-import { Table } from '@radix-ui/themes';
-import { Trash2 } from 'lucide-react';
+import DeleteExpense from './DeleteExpense';
 
-export default function ExpensesLogTable( {data} : ExpensesLogTableProps) {
+export default function ExpensesLogTable( {data, tripUUID} : ExpensesLogTableProps) {
     console.log(data);
 
     const formatTimeStamp = (timeStamp : {nanoseconds: number, seconds: number}) => {
@@ -44,9 +43,7 @@ export default function ExpensesLogTable( {data} : ExpensesLogTableProps) {
                                 <td className="border border-gray-400 px-4 py-2">{logobj.transactionType}</td>
                                 <td className="border border-gray-400 px-4 py-2">
                                     {/* Refactor to delete expense */}
-                                    <button className="text-violet11 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] font-medium leading-none outline-none">
-                                        <Trash2 size={24} color='red'/>
-                                    </button>
+                                    <DeleteExpense tripUUID={tripUUID} index={index} data={logobj}/>
                                 </td>
                             </tr>
                         ))}
