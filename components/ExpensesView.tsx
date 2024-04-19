@@ -6,9 +6,6 @@ import ExpensesViewElements from './ExpensesViewElements';
 import ExpensesLogTable from './ExpensesLogTable';
 
 export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
-    // console.log(tripUUID);
-    // console.log(tripData);
-
     const tripName: string = tripData?.name;
     const description: string = tripData?.description;
     const expensesLog: LogObj[] = tripData?.expensesLog;
@@ -51,7 +48,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                     </div>
                     <div className='container grid max-w-3xl sm:grid-cols-1 md:grid-cols-3'>
                         <div className='md:px-1'>
-                            <p className="total-expense text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                            <p className="total-expense text-gray-500 dark:text-gray-400 w-full sm:w-auto pb-2" >
                                 Total Expense
                             </p>
                             <div className="rounded-lg border border-gray-200 dark:border-gray-800">
@@ -62,7 +59,7 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                         </div>
                         <div className='md:px-1'>
                             {/* Total Users Expense */}
-                            <p className="user-expenses text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                            <p className="user-expenses text-gray-500 dark:text-gray-400 w-full sm:w-auto pb-2" >
                                 Users Expenses
                             </p>
                             <div className="rounded-lg border border-gray-200 dark:border-gray-800">
@@ -73,8 +70,8 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
                         </div>
                         <div className='md:px-1'>
                             {/* Users Expense Paid */}
-                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
-                                Total Expense Paid By Each User
+                            <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto pb-2" >
+                                Each User's Total Expense
                             </p>
                             <div className="rounded-lg border border-gray-200 dark:border-gray-800">
                                 <div className="grid grid-cols-1 divide-y divide-gray-200 dark:divide-gray-800">
