@@ -4,23 +4,41 @@ import { DeleteExpenseProps } from "@/lib/types";
 import React from "react";
 import * as AlertDialog from '@radix-ui/react-alert-dialog';
 import { Trash2 } from "lucide-react";
+import deleteTripExpense from "@/lib/expenses/deleteTripExpense";
+import deleteUserExpense from "@/lib/expenses/deleteUserExpense";
+import addActivity from "@/lib/expenses/addActivity";
+import { useAuthContext } from "@/app/context/AuthContext";
 
 export default function DeleteExpense( {tripUUID, index, data} : DeleteExpenseProps ) {
-    // console.log(tripUUID);
+    const { user } = useAuthContext();
+    const userEmail = user?.email;
+
     const [open, setOpen] = React.useState<boolean>(false);
     const [deleteSuccess, setDeleteSuccess] = React.useState<boolean>(false);
 
+    const paidFor: string[] = data.log.paidFor;
+    const paidBy: string = data.log.paidBy;
+    const amount: number = data.log.amount;
+    const currency: string = data.log.currency;
+    const transactionType: string = data.transactionType;
+
     const deleteExpense = async() => {
-        // TODO: Add delete expense function: 
-        // * delete expense from trip document expense log, total expense, userExpense, and userExpensesPaid
-        // * delete expense from user document totalExpense
-        console.log(index);
-        console.log("delete expense");
+        // delete expense from trip document
+        await deleteTripExpense(tripUUID, paidFor, paidBy, currency, amount, index, transactionType);
+
+        // delete expense from user document
+        if (transactionType === "equal") {
+            for (const user of paidFor) {
+                deleteUserExpense(user, currency, amount/2);
+            }
+        } else {
+            deleteUserExpense(paidFor[0], currency, amount);
+        }
+        if (userEmail) await addActivity(userEmail, "deleted_an_expense",  `Deleted "${data.desc}"`);
         setDeleteSuccess(true);
-        console.log(data);
-        // setTimeout(() => {
-        //     location.reload();
-        // }, 2000);
+        setTimeout(() => {
+            location.reload();
+        }, 2000);
     }
     
     return (
