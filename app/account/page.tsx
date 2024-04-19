@@ -13,7 +13,6 @@ const Account = () => {
     // console.log(user);
     // console.log(typeof user?.email);
     
-    
     useEffect(() => {
         if (user == null) router.push("/signin")
     }, [user])
@@ -22,7 +21,6 @@ const Account = () => {
   return (
     <div>
         <Nav />
-        Authorised
         <AccountInfo email={user?.email || null}/>
     </div>
   )
