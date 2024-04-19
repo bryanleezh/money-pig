@@ -13,9 +13,12 @@ export default function DeleteTrips( { tripUUID } : TripUuid )  {
     // TODO: Might need to add suspense after deleting a trip
     // get user email for deleting trip from user collection
     const { user } = useAuthContext();
+    const [open, setOpen] = React.useState<boolean>(false);
+    const [deleteSuccess, setDeleteSuccess] = React.useState<boolean>(false);
     
     // * Deletes trip from trips collection + own user's trips
     const deleteTrip = async() => {
+        setDeleteSuccess(true);
         // deletes trip from trips collection
         await deleteData('trips', tripUUID);
         // deletes trip from own user's trip
@@ -27,6 +30,7 @@ export default function DeleteTrips( { tripUUID } : TripUuid )  {
     
     // * Deletes trip from own user's trips
     const deleteTripForUser = async() => {
+        setDeleteSuccess(true);
         await deleteTripFromUser( user?.email ?? '',tripUUID);
         setTimeout(() => {
             location.reload();
@@ -35,7 +39,7 @@ export default function DeleteTrips( { tripUUID } : TripUuid )  {
 
     return (
         <div>
-            <AlertDialog.Root>
+            <AlertDialog.Root open={open} onOpenChange={setOpen}>
                 <AlertDialog.Trigger asChild>
                     <button className="text-violet11 hover:bg-mauve3 inline-flex h-[35px] items-center justify-center rounded-[4px] font-medium leading-none outline-none">
                         <Trash2 size={24} color='red'/>
@@ -53,22 +57,23 @@ export default function DeleteTrips( { tripUUID } : TripUuid )  {
                         <AlertDialog.Description className="text-red10 mt-4 mb-5 text-[15px] leading-normal">
                             After deleting, please wait for the screen to refresh before proceeding!
                         </AlertDialog.Description>
+                        {deleteSuccess && 
+                            <AlertDialog.Description className="text-green8 mt-4 mb-5 text-[15px] leading-normal">
+                                Deletion in progress...the page will reload upon successful deletion!
+                            </AlertDialog.Description>
+                        }
                         <div className="flex justify-end gap-[25px]">
                             <AlertDialog.Cancel asChild>
                                 <button className="text-mauve11 bg-mauve4 hover:bg-mauve5 focus:shadow-mauve7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
                                     Cancel
                                 </button>
                             </AlertDialog.Cancel>
-                            <AlertDialog.Action asChild>
-                                <button onClick={deleteTrip} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-                                    For Everyone
-                                </button>
-                            </AlertDialog.Action>
-                            <AlertDialog.Action asChild>
-                                <button onClick={deleteTripForUser} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
-                                    For Me
-                                </button>
-                            </AlertDialog.Action>
+                            <button onClick={deleteTrip} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+                                For Everyone
+                            </button>
+                            <button onClick={deleteTripForUser} className="text-red11 bg-red4 hover:bg-red5 focus:shadow-red7 py-5 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none outline-none focus:shadow-[0_0_0_2px]">
+                                For Me
+                            </button>
                         </div>
                     </AlertDialog.Content>
                 </AlertDialog.Portal>
