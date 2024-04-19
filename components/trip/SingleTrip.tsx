@@ -37,7 +37,7 @@ React.useEffect(() => {
 }, [tripUUID]);
 
   return (
-    <div className='pt-24 flex flex-col items-center'>
+    <div className='flex flex-col items-center'>
       {
         isLoading ?
         <div role="status" className="flex justify-center pt-20">
