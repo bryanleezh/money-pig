@@ -1,4 +1,4 @@
-import { mauve, violet, red, blackA } from '@radix-ui/colors';
+import { mauve, violet, red, blackA, green } from '@radix-ui/colors';
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
@@ -20,6 +20,7 @@ const config: Config = {
         ...violet,
         ...red,
         ...blackA,
+        ...green,
       },
       keyframes: {
         overlayShow: {
