@@ -3,10 +3,10 @@
 import React from "react";
 import firebase_app from "@/lib/firebase/config";
 import { DocumentData, collection, doc, getDoc, getFirestore } from "firebase/firestore";
-import AccountCard from '@/components/AccountCard';
+import AccountCard from '@/components/account/AccountCard';
 import profilepic from '@/lib/images/profile-photo.jpg';
 import { AccountInfoProps } from "@/lib/types";
-import Loader from "./loader/Loader";
+import Loader from "../loader/Loader";
 
 export default function AccountInfo( { email }: AccountInfoProps ) {
     const db = getFirestore(firebase_app);
@@ -16,7 +16,7 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
     const [loading, setLoading] = React.useState<boolean>(true);
     
     const username: string = account.length > 0 ? account[0].username : '';
-    const tripCount: number = account.length > 0 ? account[0].trips.length : 0;
+    const tripCount: number = account.length > 0 ? Object.keys(account[0].trips).length : 0;
     const totalExpenditure: Record<string, number> = account.length > 0 ?
         account[0].totalExpense :
     {};
@@ -34,7 +34,7 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
                 }
                 else {
                     // might need to change this error logging
-                    console.log('No such document!');
+                    console.error('No such document!');
                 }
             }
 
@@ -59,7 +59,7 @@ export default function AccountInfo( { email }: AccountInfoProps ) {
                     <Loader />
                 </div>
                 :
-                <section className="bg-gray-2 pb-10 pt-20 dark:bg-dark lg:pb-20 lg:pt-[120px]">
+                <section className="bg-gray-2 pb-10 dark:bg-dark lg:pb-20">
                     <div>
                         <AccountCard
                             image={profilepic}
