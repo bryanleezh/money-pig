@@ -19,7 +19,6 @@ const Activity = () => {
   return (
     <div>
         <Nav />
-        Authorised
     </div>
   )
 }
