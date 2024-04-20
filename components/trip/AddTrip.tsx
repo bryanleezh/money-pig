@@ -9,7 +9,7 @@ import { collection, doc, getDocs, getFirestore, setDoc, updateDoc } from 'fireb
 import firebase_app from '@/lib/firebase/config';
 import { v4 as uuidv4 } from 'uuid';
 import addData from '@/lib/firebase/firestore/addData';
-import addActivity from '@/lib/expenses/addActivity';
+import addActivity from '@/lib/activity/addActivity';
 
 // Future Reference: shadcn/ui -> Dialog
 
