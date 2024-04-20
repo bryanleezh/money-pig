@@ -1,6 +1,6 @@
 import { DeleteResult } from "@/lib/types";
 import firebase_app from "../config";
-import { getFirestore, doc, deleteDoc, DocumentData } from "firebase/firestore";
+import { getFirestore, doc, deleteDoc } from "firebase/firestore";
 
 const db = getFirestore(firebase_app);
 
