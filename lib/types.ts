@@ -24,6 +24,10 @@ interface TripUuid {
     tripUUID: string;
 }
 
+interface DeleteTripsProps extends TripUuid {
+    tripData: Trip;
+}
+
 interface TripInfo extends TripUuid {
     tripData: DocumentData | undefined;
 }
@@ -83,14 +87,20 @@ interface Activity {
     activityType: string;
     desc: string;
     timestamp: number;
-    
 }
+
+interface IndivActivityProps {
+    data: Activity;
+    type: string;
+}
+
 export type {
     AccountInfoProps,
     AccountCardProps,
     Trip,
     TripUuid,
     TripInfo,
+    DeleteTripsProps,
     AddDataResult,
     DeleteResult,
     ExpenseTabProps,
@@ -100,4 +110,5 @@ export type {
     ExpensesLogTableProps,
     DeleteExpenseProps,
     Activity,
+    IndivActivityProps,
 }
