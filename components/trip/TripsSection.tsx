@@ -7,7 +7,7 @@ import { AddTrip, TripsTable } from '@/components';
 export default function TripsSection ( { email } : AccountInfoProps ) {
   return (
     <div className='flex flex-col items-center'>
-        <div>
+        <div className='pt-5'>
           <AddTrip email={ email || null } />
           <TripsTable email={ email || null } />
         </div>
