@@ -1,23 +1,22 @@
 'use client';
 
 import React from 'react';
-import { collection, getFirestore } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
-import { Accessibility } from 'lucide-react';
+import { Backpack } from 'lucide-react';
 import { Loader, DeleteTrips } from '@/components';
 import getData from '@/lib/firebase/firestore/getData';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
 
     const db = getFirestore(firebase_app);
-    const tripsCollection = collection(db, 'trips');
 
     const [tripsData, setTripsData] = React.useState<Trip[]>([]);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
 
-    // Fetch data from users table
+    // Fetch data from trips collection
     const fetchTripData = async() => {
         if (email === null) return;
         const tripsdata: Trip[] = [];
@@ -54,19 +53,19 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 ) : (
                 <>
                     {tripsData.map((item: Trip, index) => (
-                        <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5'>
+                        <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5 p-2'>
                             <div className='col-span-4'>
                                 <Link href={`/trips/${item.id}`} passHref>
                                     <div className='border-dotted  border-gray-300 grid grid-cols-5 grid-rows-2'>                                
                                         <div className='row-span-2 flex flex-col items-center pt-2'>
-                                            <Accessibility size={48} color='lightblue' />
+                                            <Backpack size={48} color='lightblue' />
                                         </div>
-                                        <div className='col-span-3'>
+                                        <div className='col-span-3 pl-4'>
                                             <h2 className="mb-1 block text-xl font-bold text-primary hover:text-primary dark:text-cyan-200 sm:text-[22px] md:text-xl lg:text-[22px] xl:text-xl 2xl:text-[22px]">
                                                 {item.name}
                                             </h2>
                                         </div>
-                                        <div className="col-start-2 row-start-2 col-span-3">
+                                        <div className="col-start-2 row-start-2 col-span-3 pl-4">
                                             <h3 className="text-base font-semibold text-primary leading-relaxed text-body-color dark:text-primary">
                                                 {item.description}
                                             </h3>
@@ -75,7 +74,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                                 </Link>
                             </div>
                             <div className='col-span-1 flex justify-center mt-4 grid-rows-3'>
-                                <DeleteTrips tripUUID={item.id} />
+                                <DeleteTrips tripUUID={item.id} tripData={item} />
                             </div>
                         </div>
                     ))}
