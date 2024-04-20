@@ -4,7 +4,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Nav } from '@/components';
+import { ActivitySection, Nav } from '@/components';
 
 
 const Activity = () => {
@@ -19,6 +19,7 @@ const Activity = () => {
   return (
     <div>
         <Nav />
+        <ActivitySection email={ user?.email || null}/>
     </div>
   )
 }
