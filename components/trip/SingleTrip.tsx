@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import {  TripUuid } from '@/lib/types';
+import { TripUuid } from '@/lib/types';
 import { AddExpense, ExpensesView, Loader } from '@/components';
 import { DocumentData, doc, getDoc, getFirestore } from 'firebase/firestore';
 import firebase_app from '@/lib/firebase/config';
@@ -44,7 +44,7 @@ React.useEffect(() => {
           <Loader />
         </div>
         :
-        <div className='w-full'>
+        <div className='w-full pt-5'>
           <AddExpense tripUUID={tripUUID} tripData={tripData}/>
           <ExpensesView tripUUID={tripUUID} tripData={tripData} />
         </div>
