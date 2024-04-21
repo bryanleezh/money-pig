@@ -4,11 +4,11 @@ import { BarChart, Receipt, Wallet } from 'lucide-react';
 
 export default function LandingPageSection() {
     return (
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
             <LandingPageNav type="landingpage"/>
             <main className="flex-1">
                 <section className="py-12 md:py-24 lg:py-32 bg-gray-900 text-white">
-                    <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-6">
+                    <div className="flex flex-col px-4 md:px-6 items-center text-center space-y-6">
                         <div className="space-y-4">
                             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                                 Take Control of Your Expenses
@@ -26,7 +26,7 @@ export default function LandingPageSection() {
                     </div>
                 </section>
                 <section className="py-12 md:py-24 lg:py-32">
-                    <div className="container px-4 md:px-6 flex flex-col items-center text-center space-y-6">
+                    <div className="flex flex-col px-4 md:px-6 items-center text-center space-y-6">
                         <div className="space-y-4">
                             <div className="inline-block rounded-lg bg-blue-100 px-3 py-1 text-sm text-blue-600 dark:bg-blue-800 dark:text-indigo-300">
                                 Expense Tracking
