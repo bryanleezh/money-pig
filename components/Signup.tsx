@@ -4,6 +4,8 @@ import React from 'react';
 import signUp from '@/lib/firebase/auth/signup';
 import { useRouter } from 'next/navigation';
 import addData from '@/lib/firebase/firestore/addData';
+import { SquareUser } from 'lucide-react';
+import LandingPageNav from './landingpage/LandingPageNav';
 
 // can use React Joyride for initial tutorial after signup, can be a flag in users db which can be turned on and off
 
@@ -60,9 +62,11 @@ export const Signup = () => {
     return router.push("/account");
   }
   return (
+    <div className="flex flex-col">
+      <LandingPageNav type=""/>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          {/* <Coins className="mx-auto h-10 w-auto" color="lightblue" size={52}/> */}
+          <SquareUser className="mx-auto h-10 w-auto" color="lightblue" size={52}/>
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight ">
               Sign Up for an Account
           </h2>
@@ -158,6 +162,7 @@ export const Signup = () => {
           </p>
         </div>
       </div>
+    </div>
   )
 }
 
