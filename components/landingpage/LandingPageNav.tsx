@@ -16,7 +16,7 @@ export default function LandingPageNav( { type } : LandingPageNavProps) {
                             height={48}
                             className="mr-2"
                         />
-                        <span className="text-lg font-semibold">Money Pig Expense Tracker</span>
+                        <span className="text-lg font-semibold">Money Pig</span>
                     </Link>
                     <Link
                         className="inline-flex justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
