@@ -1,6 +1,10 @@
 import { DocumentData, FirestoreError } from "firebase/firestore";
 import { StaticImageData } from "next/image";
 
+interface LandingPageNavProps {
+    type: string | null;
+}
+
 interface AccountInfoProps {
     email: string | null;
 }
@@ -95,6 +99,7 @@ interface IndivActivityProps {
 }
 
 export type {
+    LandingPageNavProps,
     AccountInfoProps,
     AccountCardProps,
     Trip,
