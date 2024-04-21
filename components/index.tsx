@@ -1,4 +1,6 @@
 import Nav from './Nav';
+import LandingPageSection from './landingpage/LandingPageSection';
+import LandingPageNav from './landingpage/LandingPageNav';
 import Loader from './loader/Loader';
 import AccountInfo from './account/AccountInfo';
 import {Signin} from './Signin';
@@ -17,6 +19,8 @@ import IndivActivity from './activity/IndivActivity';
 
 export {
     Nav,
+    LandingPageSection,
+    LandingPageNav,
     Loader,
     Signin,
     Signup,
