@@ -27,7 +27,7 @@ export default function ActivityTable ( { email } : AccountInfoProps ) {
             const activityObj = result.data().activity;
             
             for (const activity of activityObj) {
-                activitydata.push(activity as Activity);
+                activitydata.unshift(activity as Activity);
             }
             
             setActivityData(activitydata);
@@ -51,16 +51,12 @@ export default function ActivityTable ( { email } : AccountInfoProps ) {
                 ) : (
                 <>
                     {activityData.map((item: Activity, index) => (
-                        <div key={index} className='border-dotted border-gray-300 grid grid-cols-3 p-2 pb-10'>
-                            <div className='col-span-3'>
-                                <div className='border-dotted  border-gray-300 grid grid-cols-5 grid-rows-2'>                                
-                                    {item.activityType.includes("create") ? 
-                                        <IndivActivity data={item} type="create"/>
-                                    :
-                                        <IndivActivity data={item} type="delete"/>
-                                    }
-                                </div>
-                            </div>
+                        <div key={index} className='border-dotted border-gray-300 grid grid-cols-5 p-2 pb-10'>
+                            {item.activityType.includes("create") ? 
+                                <IndivActivity data={item} type="create"/>
+                            :
+                                <IndivActivity data={item} type="delete"/>
+                            }
                         </div>
                     ))}
                 </>
