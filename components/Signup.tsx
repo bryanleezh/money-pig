@@ -59,7 +59,7 @@ export const Signup = () => {
     const { result:res, error: err} = await addData('users', email, userData);
 
     console.log(result);
-    return router.push("/account");
+    return router.push("/trips");
   }
   return (
     <div className="flex flex-col">
