@@ -111,6 +111,12 @@ To get a local copy up and running, follow these simple example steps
 
 <!-- Links -->
 
+[forks-shield]: https://img.shields.io/github/forks/bryanleezh/money-pig.svg?style=for-the-badge
+[forks-url]: https://github.com/bryanleezh/money-pig/network/members
+[stars-shield]: https://img.shields.io/github/stars/bryanleezh/money-pig.svg?style=for-the-badge
+[stars-url]: https://github.com/bryanleezh/money-pig/stargazers
+[issues-shield]: https://img.shields.io/github/issues/bryanleezh/money-pig.svg?style=for-the-badge
+[issues-url]: https://github.com/bryanleezh/money-pig/issues
 [app-screenshot1]: images/money-pig-landing-page.png
 [app-screenshot2]: images/trips-page.png
 [app-screenshot3]: images/indiv-trip.png
