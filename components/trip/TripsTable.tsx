@@ -46,8 +46,18 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 <div role="status" className="flex justify-center">
                     <Loader />
                 </div>
-                ) : (
+                ) : ( 
                 <>
+                    {/* add conditional for  no trips */}
+                    {tripsData.length == 0 && (
+                        <section className="py-6 flex justify-center">
+                            <div className='md:px-1'>
+                                <p className="trip-desc text-gray-500 dark:text-gray-400 w-full sm:w-auto" >
+                                    No trips available, add some trips to get started!
+                                </p>
+                            </div>
+                        </section>
+                    )}
                     {tripsData.map((item: Trip, index) => (
                         <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5 p-5'>
                             <div className='col-span-4'>
