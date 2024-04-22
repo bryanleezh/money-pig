@@ -1,8 +1,6 @@
 'use client';
 
 import React from 'react';
-import { getFirestore } from 'firebase/firestore';
-import firebase_app from '@/lib/firebase/config';
 import { AccountInfoProps, Trip } from '@/lib/types';
 import Link from 'next/link';
 import { Backpack } from 'lucide-react';
@@ -10,8 +8,6 @@ import { Loader, DeleteTrips } from '@/components';
 import getData from '@/lib/firebase/firestore/getData';
 
 export default function TripsTable ( { email } : AccountInfoProps ) {
-
-    const db = getFirestore(firebase_app);
 
     const [tripsData, setTripsData] = React.useState<Trip[]>([]);
     const [isLoading, setIsLoading] = React.useState<boolean>(true);
@@ -53,7 +49,7 @@ export default function TripsTable ( { email } : AccountInfoProps ) {
                 ) : (
                 <>
                     {tripsData.map((item: Trip, index) => (
-                        <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5 p-2'>
+                        <div key={item.id} className='border-dotted border-gray-300 grid grid-cols-5 p-5'>
                             <div className='col-span-4'>
                                 <Link href={`/trips/${item.id}`} passHref>
                                     <div className='border-dotted  border-gray-300 grid grid-cols-5 grid-rows-2'>                                
