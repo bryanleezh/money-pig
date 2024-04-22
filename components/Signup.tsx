@@ -58,7 +58,7 @@ export const Signup = () => {
     
     const { result:res, error: err} = await addData('users', email, userData);
 
-    console.log(result);
+    window.alert("Registration Successful!");
     return router.push("/trips");
   }
   return (
