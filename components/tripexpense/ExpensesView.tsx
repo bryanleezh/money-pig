@@ -34,8 +34,6 @@ export default function ExpensesView( {tripUUID, tripData} : TripInfo ) {
         </section>
     )
 
-
-    // TODO: Add delete button for each expense (similar to deleteTrip component)
     return (
         <>
             <section className="py-6 flex justify-center">
