@@ -40,6 +40,7 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     const [description, setDescription] = React.useState<string>('');
     const [amount, setAmount] = React.useState<number>(0);
     const [selectedCurrency, setSelectedCurrency] = React.useState(currencies[0].label);
+    const [addSuccess, setAddSuccess] = React.useState<boolean>(false);
 
     const closeModal = () => {
         setIsOpen(false);
@@ -54,7 +55,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
     }
 
     const submitEqualExpense = () => {
-        setIsOpen(false);
         console.log("submitting equal expense...");
         let splitAmount = amount/2;
 
@@ -73,13 +73,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             // Add activity to user document
             addActivity(userEmail, "created_a_new_expense", description);
         }
+        setAddSuccess(true);
         setTimeout(() => {
             location.reload();
-        }, 1000);
+        }, 2000);
     }
 
     const submitIndivExpense = () => {
-        setIsOpen(false);
         console.log("submitting indiv expense...");
 
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
@@ -99,13 +99,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             // Add activity to user document
             addActivity(userEmail, "created_a_new_expense", description);
         }
+        setAddSuccess(true);
         setTimeout(() => {
             location.reload();
-        }, 1000);
+        }, 2000);
     }
 
     const submitBestieExpense = () => {
-        setIsOpen(false);
         console.log("submitting bestie expense...");
 
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
@@ -122,13 +122,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             // Add activity to user document
             addActivity(userEmail, "created_a_new_expense", description);
         }
+        setAddSuccess(true);
         setTimeout(() => {
             location.reload();
-        }, 1000);
+        }, 2000);
     }
 
     const submitForBestieExpense = () => {
-        setIsOpen(false);
         console.log("submitting expense for bestie...");
 
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
@@ -145,13 +145,13 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             // Add activity to user document
             addActivity(userEmail, "created_a_new_expense", description);
         }
+        setAddSuccess(true);
         setTimeout(() => {
             location.reload();
-        }, 1000);
+        }, 2000);
     }
 
     const submitBestieExpenseForYou = () => {
-        setIsOpen(false);
         console.log("submitting for bestie...");
 
         if (!user || !tripUUID) console.error( "User or tripUUID not found" );
@@ -168,9 +168,10 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
             // Add activity to user document
             addActivity(userEmail, "created_a_new_expense", description);
         }
+        setAddSuccess(true);
         setTimeout(() => {
             location.reload();
-        }, 1000);
+        }, 2000);
     }
 
     // TODO: 
@@ -277,13 +278,17 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                     </div>
                                 </div>
                             </div>
+                            {addSuccess && 
+                                <div>
+                                    <p className="text-sm text-green8 mt-4 mb-2">
+                                        Expense is being added...Please wait for the page to refresh!
+                                    </p>
+                                </div>
+                            }
                             {/* Tabs for type of expense */}
                             <div className="w-full max-w-md px-2 py-2 sm:px-0">
                                 {isSingleUser ? (
                                     <>
-                                        <div className="flex flex-col items-center justify-center">
-                                            <p className="text-black pb-4">{description}</p>
-                                        </div>
                                         <div className="bg-gray-50 px-4 sm:flex sm:flex-row-reverse sm:px-6">
                                             <button
                                                 type="button"
@@ -304,7 +309,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                 ) : (
                                     <Tab.Group>
                                         <Tab.List className="flex space-x-1 rounded-xl bg-green-900/20 p-1">
-                                            {/* TODO: Add description to each tab on what each type is */}
                                             {tabs.map((tab, index) => (
                                                 <Tab key={index} className={({ selected }) =>
                                                     classNames(
@@ -331,7 +335,6 @@ export default function AddExpense( {tripUUID, tripData} : TripInfo ) {
                                         </Tab.Panels>
                                     </Tab.Group>
                                 )}
-                                
                             </div>
                         </form>
                         </Dialog.Panel>
