@@ -42,7 +42,10 @@
 
 ## About The Project
 
-<!-- ![App Overview][app-screenshot] -->
+![App Overview][app-screenshot1]
+![App Overview][app-screenshot2]
+![App Overview][app-screenshot3]
+![App Overview][app-screenshot4]
 
 This expense tracker was built as an experimental project to learn to basics of Next.js, with allows users to create trips, log expenses, and view their shared expenses with others.
 
@@ -52,6 +55,7 @@ This expense tracker was built as an experimental project to learn to basics of 
 1. Real time data synchronization between users using Firebase Database
 1. Trip creation and deletion
 1. Expenses creation and deletion
+1. Multiple currencies for each trip
 1. Activity logging upon creation and deletion
 
 ### Built With
@@ -99,4 +103,8 @@ To get a local copy up and running, follow these simple example steps
     ```
 
 <!-- Links -->
-<!-- [app-screenshot]:  -->
+
+[app-screenshot1]: images/money-pig-landing-page.png
+[app-screenshot2]: images/trips-page.png
+[app-screenshot3]: images/indiv-trip.png
+[app-screenshot4]: images/activity-page.png
