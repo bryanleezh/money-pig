@@ -49,6 +49,12 @@
 
 This expense tracker was built as an experimental project to learn to basics of Next.js, with allows users to create trips, log expenses, and view their shared expenses with others.
 
+Future Features/Improvements
+
+1. Using a UI component library like [Shadcn/ui](https://ui.shadcn.com/)
+1. Allowing multiple people to join trips (currently only supports single user)
+    - This would require implementing simplify debt algorithms, which has already been built, but not implemented on the frontend side
+
 ### Project Features
 
 1. User authentication and registration with email and password using Firebase Authentication.
