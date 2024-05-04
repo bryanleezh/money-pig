@@ -56,7 +56,7 @@ Future Features/Improvements
     - This would require implementing simplify debt algorithms, which has already been built, but not implemented on the frontend side
 1. Forgot password feature for users using Firebase
 1. Implementing [Zod](https://zod.dev/) for schema validation
-1. Using an ORM like [Drizzle](https://orm.drizzle.team/) or [Prisma](https://www.prisma.io/) instead of Firebase
+1. Using an ORM like [Drizzle](https://orm.drizzle.team/) or [Prisma](https://www.prisma.io/)
 
 ### Project Features
 
