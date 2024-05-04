@@ -46,7 +46,7 @@
 ![App Overview][app-screenshot3]
 ![App Overview][app-screenshot4]
 
-This expense tracker was built as an experimental project to learn to basics of Next.js, with allows users to create trips, log expenses, and view their shared expenses with others.
+This expense tracker was built as an experimental project to learn to basics of Next.js, which allows users to create trips, log expenses, and view their shared expenses with others.
 
 Future Features/Improvements
 
