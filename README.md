@@ -55,6 +55,7 @@ This expense tracker was built as an experimental project to learn to basics of 
 Future Features/Improvements
 
 1. Using a UI component library like [Shadcn/ui](https://ui.shadcn.com/)
+1. Refactor code for re-usability, especially with radix-ui and proper theming
 1. Allowing multiple people to join trips (currently only supports single user)
     - This would require implementing simplify debt algorithms, which has already been built, but not implemented on the frontend side
 1. Forgot password feature for users using Firebase
@@ -78,9 +79,8 @@ Future Features/Improvements
 
 ### Key Libraries Used
 
-1. Firebase
-2. headlessui/react
-3. Radix-ui
+1. [headlessui/react](https://headlessui.com/)
+2. [Radix-ui](https://www.radix-ui.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
